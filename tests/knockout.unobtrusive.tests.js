@@ -131,4 +131,9 @@ $(function() {
 
         ok($("#photo").data('bind') === "attr: {src: photoUrl, alt: name}");
     });
+
+    test('createBindings with comprehensive bindings property creates data-bind attributes', function() {
+
+    
+    });
 });
