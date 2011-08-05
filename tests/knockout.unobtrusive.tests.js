@@ -132,8 +132,18 @@ $(function() {
         ok($("#photo").data('bind') === "attr: {src: photoUrl, alt: name}");
     });
 
+    test('createBindings with existing bindings defined preserves existing attribute values', function() {
+    
+    });
+
     test('createBindings with comprehensive bindings property creates data-bind attributes', function() {
 
     
     });
+
+    //Add'l Features
+    // 1) enabled binding
+    // 2) Working with data-bind values in templates
+    // 3) selectionOptions binding
+    // 4) other bindings (click, submit, enable, disable, html, css, attr, style) 
 });
