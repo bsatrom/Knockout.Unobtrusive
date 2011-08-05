@@ -10,10 +10,10 @@ If, however, the phrase "Unobtrusive JavaScript" is something of a personal miss
 
 Getting started is simple. Just download [KnockoutJS] (http://knockoutjs.com) and this plugin and include the following script references in your page.
 
-,,,,
+````
 <script src="knockout-1.2.1.js"></script>
 <script src="knockout.unobtrusive.js"></script>
-,,,,
+````
 
 ## Prerequisites
 
