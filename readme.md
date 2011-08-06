@@ -4,11 +4,13 @@ Unobtrusive model binding syntax for [KnockoutJS] (http://knockoutjs.com)
 
 ### Prerequisites
 
-* KnockoutJs v1.2.1 or higher
+* KnockoutJS v1.2.1 or higher
 
 This is a plugin for KnockoutJS and is built and tested against Knockout v1.2.1. If you experience any issues in working with this plugin in your applications, or notice a breaking change to a future version of Knockout that affects this plugin, please let me know on the [Issues tab] (https://github.com/bsatrom/Knockout.Unobtrusive/issues) of this project.
 
 ## Getting Started
+
+*For a working sample of knockout.unobtrusive, check out [this Fiddle] (http://jsfiddle.net/bsatrom/vRECM/)*
 
 Knockout.Unobtrusive is all about moving your binding syntax from HTML into your JavaScript. If you like the declarative "data-bind" syntax of Knockout, and see no reason to muck with it, this plugin is probably not for you. No worries, my feelings won't be hurt.
 
