@@ -74,11 +74,11 @@ ko.unobtrusive.bindings.text = ['name', 'bio', 'twitterHandle', 'photoUrl']
 
 The prototype bindings object also serves as documentation for the types of binding options currently supported by the Knockout.Unobtrusive plugin. As of v0.1, these options are:
 
-* ````text```` - Generates the syntax needed for Knockout's [text binding] (http://knockoutjs.com/documentation/text-binding.html), data-bind="value: foo"
-* ````options```` - Generates the syntax needed for Knockout's [options binding] (http://knockoutjs.com/documentation/options-binding.html), data-bind="options: foo"
+* ````text```` - Generates the syntax needed for Knockout's [text binding] (http://knockoutjs.com/documentation/text-binding.html), ````data-bind="value: foo"````
+* ````options```` - Generates the syntax needed for Knockout's [options binding] (http://knockoutjs.com/documentation/options-binding.html), ````data-bind="options: foo"````
 
-* ````checked```` - Generates the syntax needed for Knockout's [checked binding] (http://knockoutjs.com/documentation/checked-binding.html), data-bind="checked: foo"
-* ````custom```` - Can be used for any bindings not yet provided by the plugin, or for when setting multiple bindings on a single element, for example data-bind="enable: isValid(), click: addLanguage"
+* ````checked```` - Generates the syntax needed for Knockout's [checked binding] (http://knockoutjs.com/documentation/checked-binding.html), ````data-bind="checked: foo"````
+* ````custom```` - Can be used for any bindings not yet provided by the plugin, or for when setting multiple bindings on a single element, for example ````data-bind="enable: isValid(), click: addLanguage"````
 
 ### Binding Conventions
 
@@ -92,7 +92,22 @@ var bindings = {
 }
 ````
 
-* Binding declarations will concatenate the data-bind value when declared in multiple locations
+* Binding declarations will concatenate the data-bind value when declared in multiple locations. For example, the following binding:
+
+````
+var bindings = {
+    text: ['topicToAdd'],
+    custom: {
+        topicToAdd: 'valueUpdate: "afterkeydown"'
+    }
+};
+````
+
+Will produce this data-bind attribute:
+
+````
+dat-bind='value: topicToAdd, valueUpdate: "afterkeydown"'
+````
 
 ### Coming Soon..
 

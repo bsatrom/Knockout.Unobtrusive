@@ -143,7 +143,16 @@ $(function() {
     });
 
     test('createBindings with existing bindings defined preserves existing attribute values', function() {
-    
+        var bindings = {
+            text: ['topicToAdd'],
+            custom: {
+                topicToAdd: 'valueUpdate: "afterkeydown"'
+            }
+        };
+
+        ko.unobtrusive.createBindings(bindings);
+
+        ok($('#topicToAdd').data("bind") === 'value: topicToAdd, valueUpdate: "afterkeydown"');
     });
 
     test('createBindings with comprehensive bindings property creates data-bind attributes', function() {

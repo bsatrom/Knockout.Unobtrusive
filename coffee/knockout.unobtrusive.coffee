@@ -28,6 +28,11 @@ ko.unobtrusive = {
     setElementBinding = (id, value) ->
       el = getElement id;
       if el
+        existing = el.getAttribute "data-bind"
+        
+        if existing
+          value = "#{existing}, #{value}"
+          
         el.setAttribute "data-bind", value
     
     createElementBinding = (element, koBinding) ->

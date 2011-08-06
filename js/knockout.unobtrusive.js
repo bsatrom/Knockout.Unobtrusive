@@ -28,9 +28,13 @@
         return el;
       };
       setElementBinding = function(id, value) {
-        var el;
+        var el, existing;
         el = getElement(id);
         if (el) {
+          existing = el.getAttribute("data-bind");
+          if (existing) {
+            value = "" + existing + ", " + value;
+          }
           return el.setAttribute("data-bind", value);
         }
       };
