@@ -74,22 +74,32 @@ ko.unobtrusive.bindings.text = ['name', 'bio', 'twitterHandle', 'photoUrl']
 
 The prototype bindings object also serves as documentation for the types of binding options currently supported by the Knockout.Unobtrusive plugin. As of v0.1, these options are:
 
-* Text - Generates the syntax needed for Knockout's [text binding] (http://knockoutjs.com/documentation/text-binding.html), data-bind="value: foo"
-* Options - Generates the syntax needed for Knockout's [options binding] (http://knockoutjs.com/documentation/options-binding.html), data-bind="options: foo"
+* ````text```` - Generates the syntax needed for Knockout's [text binding] (http://knockoutjs.com/documentation/text-binding.html), data-bind="value: foo"
+* ````options```` - Generates the syntax needed for Knockout's [options binding] (http://knockoutjs.com/documentation/options-binding.html), data-bind="options: foo"
 
-* Checked - Generates the syntax needed for Knockout's [checked binding] (http://knockoutjs.com/documentation/checked-binding.html), data-bind="checked: foo"
-* Custom - Can be used for any bindings not yet provided by the plugin, or for when setting multiple bindings on a single element, for example data-bind="enable: isValid(), click: addLanguage"
+* ````checked```` - Generates the syntax needed for Knockout's [checked binding] (http://knockoutjs.com/documentation/checked-binding.html), data-bind="checked: foo"
+* ````custom```` - Can be used for any bindings not yet provided by the plugin, or for when setting multiple bindings on a single element, for example data-bind="enable: isValid(), click: addLanguage"
 
 ### Binding Conventions
 
-* Plugin selects DOM (View) elements by id, then name
-* Camel-cased ViewModel properties match to Pascal-cased DOM (View) elements
-* ViewModel properties with Matching DOM (View) elements can be minimized in the binding declaration. Non-matching elements can be expanded in the same declaration.
+* Plugin selects DOM (View) elements by id, then name - When creating binding definitions, id and name values can be used. The plugin will first attempt to select elements by id, then by name.
+* Camel-cased ViewModel properties match to Pascal-cased DOM (View) elements - If the plugin is unable to find elements by a same case search for id and name, the first letter of the binding name will be capitalized and re-selected from the DOM
+* ViewModel properties with Matching DOM (View) elements can be minimized in the binding declaration. Non-matching elements can be expanded in the same declaration. For example:
+
+````
+var bindings = {
+  text: [{name: "foo"}, "email"]
+}
+````
+
 * Binding declarations will concatenate the data-bind value when declared in multiple locations
 
 ### Coming Soon..
 
-* 
+* ````enabled```` binding
+* Working with data-bind attributes defined in template blocks
+* ````selectedOptions```` binding
+* other bindings, including ````click````, ````submit````, ````disable````, ````html````, ````css````, ````attr````, ````style````, 
 
 ## It's Early Yet...
 
