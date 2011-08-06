@@ -58,6 +58,16 @@ $(function() {
         ok($('input[name=occupation]').data('bind') === 'value: occupation');
     });
 
+     test('createBindings on Pascal-cased fields, with name instead of id set, matches to input bindings in a case-insensitive way', function() {
+        var bindings = {
+            text: ['facebookUrl']
+        };
+
+        ko.unobtrusive.createBindings(bindings);
+
+        ok($('input[name=FacebookUrl]').data('bind') === 'value: facebookUrl');
+    });
+
     test('createBindings with options property on bindings object creates data-bind attribute', function() {
         var bindings = {
             options: ['languages']
@@ -80,7 +90,7 @@ $(function() {
 
     test('createBindings with combination of expanded and non-expanded options properties creates data-bind attribute', function() {
         var bindings = {
-            options: [{topics: "bar"}, "languages"]
+            options: ["languages", {topics: "bar"}]
         }
 
         ko.unobtrusive.createBindings(bindings);
@@ -137,7 +147,6 @@ $(function() {
     });
 
     test('createBindings with comprehensive bindings property creates data-bind attributes', function() {
-
     
     });
 
