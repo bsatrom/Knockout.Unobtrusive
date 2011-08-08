@@ -45,8 +45,8 @@ ko.unobtrusive = {
         else
           setElementBinding element, "#{koBinding}: #{element}"
     
-    for own textKey, value of bindings.text
-      createElementBinding bindings.text[textKey], "value"
+    for own valueKey, value of bindings.value
+      createElementBinding bindings.value[valueKey], "value"
       
     for own optionsKey, value of bindings.options
       createElementBinding bindings.options[optionsKey], "options" 
@@ -59,6 +59,7 @@ ko.unobtrusive = {
 }
 
 ko.unobtrusive.bindings = {
+  value: []
   text: []
   options: []
   checked: []

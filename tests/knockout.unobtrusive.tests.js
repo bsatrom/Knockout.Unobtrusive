@@ -1,7 +1,7 @@
 $(function() {
-    test('createBindings with text property on bindings object creates data-bind attribute', function() {
+    test('createBindings with value property on bindings object creates data-bind attribute', function() {
         var bindings = {
-            text: ['name']
+            value: ['name']
         };
 
         ko.unobtrusive.createBindings(bindings);
@@ -9,9 +9,9 @@ $(function() {
         ok($('#name').data('bind') === 'value: name');
     });
 
-    test('createBindings with expanded text property on bindings object creates data-bind attribute', function() {
+    test('createBindings with expanded value property on bindings object creates data-bind attribute', function() {
         var bindings = {
-            text: [{name: "foo"}]
+            value: [{name: "foo"}]
         }
 
         ko.unobtrusive.createBindings(bindings);
@@ -19,9 +19,9 @@ $(function() {
         ok($('#name').data('bind') === 'value: foo');
     }); 
 
-    test('createBindings with combination of expanded and non-expanded text properties creates data-bind attribute', function() {
+    test('createBindings with combination of expanded and non-expanded value properties creates data-bind attribute', function() {
         var bindings = {
-            text: [{name: "foo"}, "email"]
+            value: [{name: "foo"}, "email"]
         }
 
         ko.unobtrusive.createBindings(bindings);
@@ -38,9 +38,9 @@ $(function() {
         ok($('#name').data('bind') === undefined);
     });
 
-    test('createBindings on Pascal-cased fields matches to input bindings in a case-insensitive way', function() {
+    test('createBindings on Pascal-cased fields matches to value bindings in a case-insensitive way', function() {
         var bindings = {
-            text: ['twitterHandle']
+            value: ['twitterHandle']
         };
 
         ko.unobtrusive.createBindings(bindings);
@@ -50,7 +50,7 @@ $(function() {
 
     test('createBindings on fields with name fields instead of id fields creates data-bind attributes', function() {
         var bindings = {
-            text: ['occupation']
+            value: ['occupation']
         };
 
         ko.unobtrusive.createBindings(bindings);
@@ -58,9 +58,9 @@ $(function() {
         ok($('input[name=occupation]').data('bind') === 'value: occupation');
     });
 
-     test('createBindings on Pascal-cased fields, with name instead of id set, matches to input bindings in a case-insensitive way', function() {
+     test('createBindings on Pascal-cased fields, with name instead of id set, matches to value bindings in a case-insensitive way', function() {
         var bindings = {
-            text: ['facebookUrl']
+            value: ['facebookUrl']
         };
 
         ko.unobtrusive.createBindings(bindings);
@@ -144,7 +144,7 @@ $(function() {
 
     test('createBindings with existing bindings defined preserves existing attribute values', function() {
         var bindings = {
-            text: ['topicToAdd'],
+            value: ['topicToAdd'],
             custom: {
                 topicToAdd: 'valueUpdate: "afterkeydown"'
             }
@@ -156,10 +156,29 @@ $(function() {
     });
 
     test('createBindings with comprehensive bindings property creates data-bind attributes', function() {
-    
+        var bindings = {
+            text: [ 'languageToAdd', 'name', 'bio', 'twitterHandle', 'state', 'photoUrl',
+                    {languageList: 'languages'} ],
+            options: ['languages', 'favoriteTopics'],
+            custom: {
+                languageToAdd: 'valueUpdate: "afterkeydown"',
+                addLanguage: 'enable: languageToAdd().length > 0, click: addLanguage',
+                photo: 'attr: {src: photoUrl, alt: name}',
+                displayName: 'text: name',
+                displayState: 'text: state',
+                displayBio: 'text: bio',
+                twitterUrl: 'attr: {href: twitterUrl}',
+                displayTwitterHandle: 'text: twitterHandle'
+            }
+        };
+
+        ko.unobtrusive.createBindings(bindings);
+
+        //tests
     });
 
     //Add'l Features
+    // 1) text binding for spans
     // 1) enabled binding
     // 2) Working with data-bind values in templates
     // 3) selectionOptions binding

@@ -14,7 +14,7 @@
   */  var __hasProp = Object.prototype.hasOwnProperty;
   ko.unobtrusive = {
     createBindings: function(bindings) {
-      var checkedKey, createElementBinding, customKey, getElement, optionsKey, setElementBinding, textKey, value, _ref, _ref2, _ref3, _ref4, _results;
+      var checkedKey, createElementBinding, customKey, getElement, optionsKey, setElementBinding, value, valueKey, _ref, _ref2, _ref3, _ref4, _results;
       if (!bindings) {
         bindings = ko.unobtrusive.bindings;
       }
@@ -56,11 +56,11 @@
           }
         }
       };
-      _ref = bindings.text;
-      for (textKey in _ref) {
-        if (!__hasProp.call(_ref, textKey)) continue;
-        value = _ref[textKey];
-        createElementBinding(bindings.text[textKey], "value");
+      _ref = bindings.value;
+      for (valueKey in _ref) {
+        if (!__hasProp.call(_ref, valueKey)) continue;
+        value = _ref[valueKey];
+        createElementBinding(bindings.value[valueKey], "value");
       }
       _ref2 = bindings.options;
       for (optionsKey in _ref2) {
@@ -85,6 +85,7 @@
     }
   };
   ko.unobtrusive.bindings = {
+    value: [],
     text: [],
     options: [],
     checked: [],
