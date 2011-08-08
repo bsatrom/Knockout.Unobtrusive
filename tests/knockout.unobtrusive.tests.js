@@ -68,6 +68,27 @@ $(function() {
         ok($('input[name=FacebookUrl]').data('bind') === 'value: facebookUrl');
     });
 
+    test('createBindings with text property on bindings object creates data-bind attribute', function() {
+        var bindings = {
+            text: ['displayName']
+        };
+
+        ko.unobtrusive.createBindings(bindings);
+
+        ok($('#displayName').data('bind') === 'text: displayName');
+    });
+
+    test('createBindings with combination of expanded and non-expanded text properties creates data-bind attribute', function() {
+        var bindings = {
+            text: [{displayName: "foo"}, "displayEmail"]
+        }
+
+        ko.unobtrusive.createBindings(bindings);
+
+        ok($('#displayName').data('bind') === 'text: foo');
+        ok($('#displayEmail').data('bind') === 'text: displayEmail');
+    });
+
     test('createBindings with options property on bindings object creates data-bind attribute', function() {
         var bindings = {
             options: ['languages']

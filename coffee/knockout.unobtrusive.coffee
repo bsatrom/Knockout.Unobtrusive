@@ -48,6 +48,9 @@ ko.unobtrusive = {
     for own valueKey, value of bindings.value
       createElementBinding bindings.value[valueKey], "value"
       
+    for own textKey, value of bindings.text
+      createElementBinding bindings.text[textKey], "text"
+      
     for own optionsKey, value of bindings.options
       createElementBinding bindings.options[optionsKey], "options" 
     

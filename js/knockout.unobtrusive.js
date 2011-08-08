@@ -14,7 +14,7 @@
   */  var __hasProp = Object.prototype.hasOwnProperty;
   ko.unobtrusive = {
     createBindings: function(bindings) {
-      var checkedKey, createElementBinding, customKey, getElement, optionsKey, setElementBinding, value, valueKey, _ref, _ref2, _ref3, _ref4, _results;
+      var checkedKey, createElementBinding, customKey, getElement, optionsKey, setElementBinding, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _results;
       if (!bindings) {
         bindings = ko.unobtrusive.bindings;
       }
@@ -62,23 +62,29 @@
         value = _ref[valueKey];
         createElementBinding(bindings.value[valueKey], "value");
       }
-      _ref2 = bindings.options;
-      for (optionsKey in _ref2) {
-        if (!__hasProp.call(_ref2, optionsKey)) continue;
-        value = _ref2[optionsKey];
+      _ref2 = bindings.text;
+      for (textKey in _ref2) {
+        if (!__hasProp.call(_ref2, textKey)) continue;
+        value = _ref2[textKey];
+        createElementBinding(bindings.text[textKey], "text");
+      }
+      _ref3 = bindings.options;
+      for (optionsKey in _ref3) {
+        if (!__hasProp.call(_ref3, optionsKey)) continue;
+        value = _ref3[optionsKey];
         createElementBinding(bindings.options[optionsKey], "options");
       }
-      _ref3 = bindings.checked;
-      for (checkedKey in _ref3) {
-        if (!__hasProp.call(_ref3, checkedKey)) continue;
-        value = _ref3[checkedKey];
+      _ref4 = bindings.checked;
+      for (checkedKey in _ref4) {
+        if (!__hasProp.call(_ref4, checkedKey)) continue;
+        value = _ref4[checkedKey];
         createElementBinding(bindings.checked[checkedKey], "checked");
       }
-      _ref4 = bindings.custom;
+      _ref5 = bindings.custom;
       _results = [];
-      for (customKey in _ref4) {
-        if (!__hasProp.call(_ref4, customKey)) continue;
-        value = _ref4[customKey];
+      for (customKey in _ref5) {
+        if (!__hasProp.call(_ref5, customKey)) continue;
+        value = _ref5[customKey];
         _results.push(createElementBinding(customKey, bindings.custom[customKey]));
       }
       return _results;
