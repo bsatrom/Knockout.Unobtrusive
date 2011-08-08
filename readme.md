@@ -41,7 +41,7 @@ For each element with a data-bind attribute, we'll need to create an entry in a 
 
 ````
 var bindings = {
-  text: ['name', 'bio', 'twitterHandle', 'photoUrl']
+  value: ['name', 'bio', 'twitterHandle', 'photoUrl']
 };
 ````
 
@@ -71,12 +71,13 @@ When called with a valid bindings object, createBindings() will create all of th
 For reference, knockout.unobtrusive contains a prototype bindings object called ko.unobtrusive.bindings. If ko.unobtrusive.createBindings is called without a bindings object, this object will be used instead. If you wish, you can define bindings on this object directly, instead of using a custom object.
 
 ````
-ko.unobtrusive.bindings.text = ['name', 'bio', 'twitterHandle', 'photoUrl']
+ko.unobtrusive.bindings.value = ['name', 'bio', 'twitterHandle', 'photoUrl']
 ```` 
 
 The prototype bindings object also serves as documentation for the types of binding options currently supported by the Knockout.Unobtrusive plugin. As of v0.1, these options are:
 
-* ````text```` - Generates the syntax needed for Knockout's [text binding] (http://knockoutjs.com/documentation/text-binding.html), ````data-bind="value: foo"````
+* ````value```` - Generates the syntax needed for Knockout's [value binding] (http://knockoutjs.com/documentation/value-binding.html), ````data-bind="value: foo"````
+* ````text```` - Generates the syntax needed for Knockout's [text binding] (http://knockoutjs.com/documentation/text-binding.html), ````data-bind="text: foo"````
 * ````options```` - Generates the syntax needed for Knockout's [options binding] (http://knockoutjs.com/documentation/options-binding.html), ````data-bind="options: foo"````
 
 * ````checked```` - Generates the syntax needed for Knockout's [checked binding] (http://knockoutjs.com/documentation/checked-binding.html), ````data-bind="checked: foo"````
