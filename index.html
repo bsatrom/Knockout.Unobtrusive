@@ -33,10 +33,18 @@ top: -1px; border: 3px solid #555; -moz-border-radius: 32px; -webkit-border-radi
     section h2 { font-size: 1.8em; margin-top: 1.8em; margin-bottom: .6em; color: #999; }
     section p {line-height:1.6em;}
     section img.gravatar { float: left; margin: 8px 12px 20px 2px; padding: 2px; background-color: #DDD; border: 1px solid #BBB;}
-    pre { font-family: "Droid Sans Mono",Ubuntu,Arial,sans; font-size:.75em;
+    pre.git { background: black; color: white; padding: 15px; font-size: .9em;}
+ 	span.code {
+		font-family: Consolas,Arial,sans;
+		font-size: 16px!important;
+		background-color: ghostWhite!important;
+		color: #444!important;
+		padding: 0 .2em!important;
+		border: 1px solid #DEDEDE!important;
+	}
+	pre { font-family: "Droid Sans Mono",Ubuntu,Arial,sans; font-size:.75em;
     	border: 0; margin: 1em 0 1em .3em; padding-left: .6em; border-left: 2px solid #DDD;
  	}
- 	pre.git { background: black; color: white; padding: 15px; font-size: .9em;}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
   </style>
@@ -57,21 +65,21 @@ top: -1px; border: 3px solid #555; -moz-border-radius: 32px; -webkit-border-radi
 	<header>
     	<h1><a href="http://github.com/bsatrom/Knockout.Unobtrusive">Knockout.Unobtrusive</a>
     	</h1>
-    	<h2>:: Unobtrusive Model binding for KnockoutJS ::</h2>
+    	<h2>:: Unobtrusive model binding for KnockoutJS ::</h2>
     </header>
     
     <section>
-    	<p>Knockout.Unobtrusive is all about moving your binding syntax from HTML into your JavaScript. If you like the declarative "data-bind" syntax of Knockout, and see no reason to muck with it, this plugin is probably not for you. No worries, my feelings won't be hurt.    		
+    	<p>Knockout.Unobtrusive is all about moving your binding syntax from HTML into your JavaScript. If you like the declarative <span class="code">data-bind</span> syntax of Knockout, and see no reason to muck with it, this plugin is probably not for you. No worries, my feelings won't be hurt.    		
     	</p>
 
-		<p>If, however, the phrase "Unobtrusive JavaScript" is something of a personal mission for you, welcome to Knockout.Unobtrusive, a simple plugin that allows you to use the best JavaScript MVVM library around with script-based binding definitions.</p>
+		<p>If, however, the phrase "<a href="http://www.alistapart.com/articles/behavioralseparation">Unobtrusive JavaScript</a>" is something of a personal mission for you, welcome to Knockout.Unobtrusive, a simple plugin that allows you to use the best JavaScript MVVM library around with script-based binding definitions.</p>
 		
 		<h2>Dependencies</h2>
 <ul>
-	<li>KnockoutJS v1.2.1 or higher</li>	
+	<li><a href="http://knockoutjs.com">KnockoutJS v1.2.1 or higher</a></li>	
 </ul>
 <h2>Install</h2>
-<p>Getting started is simple. Just download KnockoutJS and this plugin and include the following script references in your page.
+<p>Getting started is simple. Just download <a href="http://knockoutjs.com">KnockoutJS</a> and <a href="http://github.com/bsatrom/Knockout.Unobtrusive/zipball/master">this plugin</a> and include the following script references in your page.
 
 <pre>
 &lt;script src="knockout-1.2.1.js"&gt;&lt;/script&gt;
@@ -120,6 +128,10 @@ ko.applyBindings(viewModel);
 </pre>
 
 When called with a valid bindings object, createBindings() will create all of the data-bind attributes that KnockoutJS depends on.</p>
+
+<h2>Sample</h2>
+<p>The embedded JSFiddle below illustrates Knockout.Unobtrusive in action. Feel free to try it out live!</p>
+<p><iframe style="width: 100%; height: 650px" src="http://jsfiddle.net/bsatrom/vRECM/embedded/result,js,html,resources"></iframe></p> <p>Note: If you cannot view the embedded Fiddle above for any reason, <a href="http://jsfiddle.net/bsatrom/vRECM/">click here</a> to view it at <a href="http://jsfiddle.net/">JSFiddle.net</a>.</p>
 
 <h2>Contact</h2>
 <p>
