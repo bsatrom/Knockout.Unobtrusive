@@ -3,35 +3,47 @@
 <head>
   <meta charset='utf-8'>
 
-  <title>bsatrom/Knockout.Unobtrusive @ GitHub</title>
-
+  <title>bsatrom/Knockout.Unobtrusive @ GitHub</title>  
+  <link href='http://fonts.googleapis.com/css?family=Cabin+Sketch:700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,italic,bold">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans+Mono">    
   <style type="text/css">
     body {
       margin-top: 1.0em;
-      background-color: #1f9b0d;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #ffffff;
+      background-color: #F8F8FF;
+      font-family: Ubuntu,Arial,sans;
+      font-size: 20px;
+      color: #555;
     }
     #container {
       margin: 0 auto;
       width: 700px;
     }
-    h1 { font-size: 3.8em; color: #e064f2; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #e064f2; }
-    h3 { text-align: center; color: #e064f2; }
-    a { color: #e064f2; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+    h1 { font-size: 3.5em; margin-bottom: 3px; font-family: 'Cabin Sketch', cursive;}
+    a { color: Grey; text-decoration: none;}
+    a:hover { text-decoration: underline }
+    a.license { display: inline-block; position: relative; top: -2px; margin: 0 6px 0 2px; width: 26px; height: 26px;  font-size: 12px; font-weight: bold; color: #555; text-align: center;}
+    a.license:before {
+    	content: ''; width: 26px; height: 26px; position: absolute; left: -3px;
+top: -1px; border: 3px solid #555; -moz-border-radius: 32px; -webkit-border-radius: 32px; border-radius: 32px;
+    }
+    h2 { font-size: 30px; margin: 16px 0 0 0; padding: 0;  }
+    h3 { text-align: center; }
     .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
+    section h2 { font-size: 1.8em; margin-top: 1.8em; margin-bottom: .6em; color: #999; }
+    section p {line-height:1.6em;}
+    section img.gravatar { float: left; margin: 8px 12px 20px 2px; padding: 2px; background-color: #DDD; border: 1px solid #BBB;}
+    pre { font-family: "Droid Sans Mono",Ubuntu,Arial,sans; font-size:.75em;
+    	border: 0; margin: 1em 0 1em .3em; padding-left: .6em; border-left: 2px solid #DDD;
+ 	}
+ 	pre.git { background: black; color: white; padding: 15px; font-size: .9em;}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
   </style>
 </head>
 
 <body>
-  <a href="http://github.com/bsatrom/Knockout.Unobtrusive"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  <a href="http://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/30f550e0d38ceb6ef5b81500c64d970b7fb0f028/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub"></a>
 
   <div id="container">
 
@@ -42,81 +54,80 @@
         <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
     </div>
 
-    <h1><a href="http://github.com/bsatrom/Knockout.Unobtrusive">Knockout.Unobtrusive</a>
-      <span class="small">by <a href="http://github.com/bsatrom">bsatrom</a></span></h1>
+	<header>
+    	<h1><a href="http://github.com/bsatrom/Knockout.Unobtrusive">Knockout.Unobtrusive</a>
+    	</h1>
+    	<h2>:: Unobtrusive Model binding for KnockoutJS ::</h2>
+    </header>
+    
+    <section>
+    	<p>Knockout.Unobtrusive is all about moving your binding syntax from HTML into your JavaScript. If you like the declarative "data-bind" syntax of Knockout, and see no reason to muck with it, this plugin is probably not for you. No worries, my feelings won't be hurt.    		
+    	</p>
 
-    <div class="description">
-      Unobtrusive View to ViewModel bindings for KnockoutJS
-    </div>
-
-    <p>Knockout.Unobtrusive is all about moving your binding syntax from HTML into your JavaScript. If you like the declarative "data-bind" syntax of Knockout, and see no reason to muck with it, this plugin is probably not for you. No worries, my feelings won't be hurt.
-
-If, however, the phrase "Unobtrusive JavaScript" is something of a personal mission for you, welcome to Knockout.Unobtrusive, a simple plugin that allows you to use the best JavaScript MVVM library around with script-based binding definitions.</p><h2>Dependencies</h2>
-<p>KnockoutJS v1.2.1 or higher</p>
+		<p>If, however, the phrase "Unobtrusive JavaScript" is something of a personal mission for you, welcome to Knockout.Unobtrusive, a simple plugin that allows you to use the best JavaScript MVVM library around with script-based binding definitions.</p>
+		
+		<h2>Dependencies</h2>
+<ul>
+	<li>KnockoutJS v1.2.1 or higher</li>	
+</ul>
 <h2>Install</h2>
 <p>Getting started is simple. Just download KnockoutJS and this plugin and include the following script references in your page.
 
-````
-<script src="knockout-1.2.1.js"></script>
-<script src="knockout.unobtrusive.js"></script>
-````
+<pre>
+&lt;script src="knockout-1.2.1.js"&gt;&lt;/script&gt;
+&lt;script src="knockout.unobtrusive.js"&gt;&lt;/script&gt;
+</pre>
 
 Moving From data-bind to A Bindings Object
 
 Once you've included a reference to Knockout.Unobtrusive in your page, you can begin moving the bindings contained in data-bind attributes in your markup into your JavaScript. If you're creating new markup, you can forego using data-bind attributes and use a bindings object instead. Consider the following markup:
 
-````
- <fieldset>
-   <legend>Speaker Info</legend>
-   Name: <input type="text" data-bind="value: name" /> <br/>
-   Bio: <input type="text" data-bind="value: bio" /> <br />
-   Twitter Handle: <input type="text" data-bind="value: twitterHandle" /> <br />
-   Photo Url: <input type="text" data-bind="value: photoUrl" />    
-</fieldset>
-````
+<pre>
+ &lt;fieldset&gt;
+   &lt;legend&gt;Speaker Info&lt;/legend&gt;
+   Name: &lt;input type="text" data-bind="value: name" /&gt; &lt;br/&gt;
+   Bio: &lt;input type="text" data-bind="value: bio" /&gt; &lt;br /&gt;
+   Twitter Handle: &lt;input type="text" data-bind="value: twitterHandle" /&gt; &lt;br /&gt;
+   Photo Url: &lt;input type="text" data-bind="value: photoUrl" /&gt;    
+ &lt;/fieldset&gt;
+</pre>
 
 For each element with a data-bind attribute, we'll need to create an entry in a bindings object that knockout.unobtrusive can then use to generate those bindings on our behalf. For the markup above, the object may look something like the following:
 
-````
+<pre>
 var bindings = {
   value: ['name', 'bio', 'twitterHandle', 'photoUrl']
 };
-````
+</pre>
 
 Once your created this object, you can remove the data-bind attributes on your markup. The only requirement on your markup that Knockout.Unobtrusive assumes is that you've assigned id or name values to each element, consistent with the bindings you define. As such, the bindings object above assumes you have elements with id or name values of 'name', 'bio', 'twitterHandle' and 'photoUrl,' as below:
 
-````
- <fieldset>
-   <legend>Speaker Info</legend>
-   Name: <input type="text" id="name" /> <br/>
-   Bio: <input type="text" id="bio" /> <br />
-   Twitter Handle: <input id="twitterHandle" type="text" /> <br />
-   Photo Url: <input id="photoUrl" type="text" />    
-</fieldset>
-````
+<pre>
+ &lt;fieldset>
+   &lt;legend>Speaker Info&lt;/legend&gt;
+   Name: &lt;input type="text" id="name" /&gt; &lt;br/&gt;
+   Bio: &lt;input type="text" id="bio" /&gt; &lt;br /&gt;
+   Twitter Handle: &lt;input id="twitterHandle" type="text" /&gt; &lt;br /&gt;
+   Photo Url: &lt;input id="photoUrl" type="text" /&gt;    
+&lt;/fieldset&gt;
+</pre>
 
 Once you've created a bindings object and adjusted your markup accordingly, you'll need to call knockout.uobtrusive's createBindings() method before your call Knockout's ko.applyBindings() method. The createBindings method accepts a bindings object:
 
-````
+<pre>
 ko.unobtrusive.createBindings(bindings);
 ko.applyBindings(viewModel);
-````
+</pre>
 
 When called with a valid bindings object, createBindings() will create all of the data-bind attributes that KnockoutJS depends on.</p>
-<h2>License</h2>
-<p>MIT License
-Copyright (c) 2001 Brandon Satrom, Carrot Pants Studios
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-<h2>Authors</h2>
-<p>Brandon Satrom (brsatrom@microsoft.com)<br/><br/>      </p>
 <h2>Contact</h2>
-<p>Brandon Satrom (brsatrom@microsoft.com)<br/>      </p>
-
+<p>
+			<img class="gravatar" src="http://www.gravatar.com/avatar/925d804db89a698c5e93b5f4c575d9a0.png?s=80" width="80" height="80">
+			<span>Brandon Satrom</span><br>
+			<a href="mailto:bsatrom@gmail.com">bsatrom@gmail.com</a><br>
+			<a target="_blank" href="http://twitter.com/brandonsatrom">@brandonsatrom</a>
+		</p>
 
     <h2>Download</h2>
     <p>
@@ -126,15 +137,34 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     </p>
     <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
       by running:
-      <pre>$ git clone git://github.com/bsatrom/Knockout.Unobtrusive</pre>
+      <pre class="git">$ git clone git://github.com/bsatrom/Knockout.Unobtrusive</pre>
     </p>
 
     <div class="footer">
       get the source code on GitHub : <a href="http://github.com/bsatrom/Knockout.Unobtrusive">bsatrom/Knockout.Unobtrusive</a>
     </div>
-
+    
+    <div>
+		<h2>License</h2>    	
+		<p>
+			<a class="license" href="http://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT</a>
+			Knockout.Unobtrusive is provided under the terms of the
+			<a target="_blank" href="http://github.com/bsatrom/Knockout.Unobtrusive/Readme.md">MIT License</a>.
+		</p>
+    </div>
   </div>
 
-  
+  <script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-2061518-6']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	
+	</script>
 </body>
 </html>
