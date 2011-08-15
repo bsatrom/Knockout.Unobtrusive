@@ -24,10 +24,8 @@ task 'cleanup', 'cleans up the libs before a release', ->
 	
 task 'build', "builds #{file}", ->
     console.log "building #{file} from coffeescript"
-    for f in fs.readdirSync source
-      fn = f.split('.')[0]
-      code = fs.readFileSync "#{source}/#{fn}.coffee", 'utf8'
-      fs.writeFile "#{output}/#{fn}.js", CoffeeScript.compile code
+    code = fs.readFileSync "#{source}/#{file}.coffee", 'utf8'
+    fs.writeFile "#{output}/#{file}.js", CoffeeScript.compile code
 	
 task 'minify', "minifies #{file} to a release build", ->
 	console.log "minifying #{file}"
