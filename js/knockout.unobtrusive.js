@@ -23,7 +23,7 @@
         el = document.getElementById(id) || document.getElementsByName(id)[0];
         if (!el) {
           id = id.charAt(0).toUpperCase() + id.slice(1);
-          el = document.getElementById(id);
+          el = document.getElementById(id) || document.getElementsByName(id)[0];
         }
         return el;
       };

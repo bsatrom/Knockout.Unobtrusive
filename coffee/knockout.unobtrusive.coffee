@@ -21,7 +21,7 @@ ko.unobtrusive = {
       
       if not el
         id = id.charAt(0).toUpperCase() + id.slice 1
-        el = document.getElementById id
+        el = document.getElementById(id) or document.getElementsByName(id)[0]
     
       return el
     
