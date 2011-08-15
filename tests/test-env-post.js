@@ -1,0 +1,1 @@
+this.ko = window.ko
