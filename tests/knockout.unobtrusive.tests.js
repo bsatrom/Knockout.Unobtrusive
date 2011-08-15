@@ -65,7 +65,7 @@ $(function() {
 
         ko.unobtrusive.createBindings(bindings);
 
-        ok($('input[name=FacebookUrl]').data('bind') === 'value: facebookUrl');
+        equal($('input[name=FacebookUrl]').data('bind'), 'value: facebookUrl');
     });
 
     test('createBindings with text property on bindings object creates data-bind attribute', function() {
