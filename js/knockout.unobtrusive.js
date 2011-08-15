@@ -11,10 +11,11 @@
   ----------------------------
   Knockout.Unobtrusive
   ----------------------------
-  */  var __hasProp = Object.prototype.hasOwnProperty;
+  */
+  var __hasProp = Object.prototype.hasOwnProperty;
   ko.unobtrusive = {
     createBindings: function(bindings) {
-      var checkedKey, createElementBinding, customKey, getElement, optionsKey, setElementBinding, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _results;
+      var checkedKey, createElementBinding, customKey, getElement, optionsKey, setElementBinding, templateKey, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
       if (!bindings) {
         bindings = ko.unobtrusive.bindings;
       }
@@ -81,11 +82,17 @@
         createElementBinding(bindings.checked[checkedKey], "checked");
       }
       _ref5 = bindings.custom;
-      _results = [];
       for (customKey in _ref5) {
         if (!__hasProp.call(_ref5, customKey)) continue;
         value = _ref5[customKey];
-        _results.push(createElementBinding(customKey, bindings.custom[customKey]));
+        createElementBinding(customKey, bindings.custom[customKey]);
+      }
+      _ref6 = bindings.template;
+      _results = [];
+      for (templateKey in _ref6) {
+        if (!__hasProp.call(_ref6, templateKey)) continue;
+        value = _ref6[templateKey];
+        _results.push(createElementBinding(bindings.template[templateKey], "template"));
       }
       return _results;
     }
@@ -95,6 +102,7 @@
     text: [],
     options: [],
     checked: [],
-    custom: {}
+    custom: {},
+    template: []
   };
 }).call(this);

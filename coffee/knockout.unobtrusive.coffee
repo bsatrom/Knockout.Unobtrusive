@@ -59,6 +59,9 @@ ko.unobtrusive = {
     
     for own customKey, value of bindings.custom
       createElementBinding customKey, bindings.custom[customKey]
+      
+    for own templateKey, value of bindings.template
+      createElementBinding bindings.template[templateKey], "template"
 }
 
 ko.unobtrusive.bindings = {
@@ -67,4 +70,5 @@ ko.unobtrusive.bindings = {
   options: []
   checked: []
   custom: {}
+  template: []
 }
