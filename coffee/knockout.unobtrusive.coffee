@@ -21,8 +21,8 @@ ko.unobtrusive = {
       
       if not el
         id = id.charAt(0).toUpperCase() + id.slice 1
-        el = document.getElementById id
-    
+        el = document.getElementById(id) or document.getElementsByName(id)[0]
+        
       return el
     
     setElementBinding = (id, value) ->
@@ -34,6 +34,18 @@ ko.unobtrusive = {
           value = "#{existing}, #{value}"
           
         el.setAttribute "data-bind", value
+      else
+      	el = $('script[type$=html], script[type$=x-jquery-tmpl]')
+      	
+      	if(el)
+      	  el.each ->
+      	  	while @text.match "= "
+      	  		@text = @text.replace "= ", "="
+      	  	boundText = @text.replace 'id="' + id + '"', 'data-bind="' + value + '"'
+      	  	
+      	  	if boundText is @text
+      	  	  boundText = @text.replace "id='#{id}'", "data-bind='#{value}'"
+      	  	@text = boundText
     
     createElementBinding = (element, koBinding) ->
       if typeof element is "object"
@@ -47,7 +59,7 @@ ko.unobtrusive = {
     
     for own valueKey, value of bindings.value
       createElementBinding bindings.value[valueKey], "value"
-      
+ 
     for own textKey, value of bindings.text
       createElementBinding bindings.text[textKey], "text"
       
@@ -56,6 +68,9 @@ ko.unobtrusive = {
     
     for own checkedKey, value of bindings.checked
       createElementBinding bindings.checked[checkedKey], "checked"
+    
+    for own clickKey, value of bindings.click
+    	createElementBinding bindings.click[clickKey], "click"    
     
     for own customKey, value of bindings.custom
       createElementBinding customKey, bindings.custom[customKey]
@@ -69,6 +84,7 @@ ko.unobtrusive.bindings = {
   text: []
   options: []
   checked: []
+  click: []
   custom: {}
   template: []
 }

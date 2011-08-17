@@ -175,8 +175,45 @@ $(function() {
 
         ok($('#topicToAdd').data("bind") === 'value: topicToAdd, valueUpdate: "afterkeydown"');
     });
+    
+    test('createBindings with (double-quotes) binding defined in a template block creates data-bind attribute', function() {
+    	var bindings = {
+    		click: ['makeOlder']
+    	};
+    	
+    	ko.unobtrusive.createBindings(bindings);
+    	
+    	$('#olderPerson').each(function() {
+    		ok(!!this.text.match('data-bind="click: makeOlder"'));    	
+    	});    	
+    });
+    
+    test('createBindings with (single-quotes) binding defined in a template block creates data-bind attribute', function() {
+    	var bindings = {
+    		click: ['makeYounger']
+    	};
+    	
+    	ko.unobtrusive.createBindings(bindings);
+    	
+    	$('#youngerPerson').each(function() {
+    		ok(!!this.text.match("data-bind='click: makeYounger'"));    	
+    	});    	
+    });
+    
+    test('createBindings with binding defined in a template block and an extra space in the html (id= "foo" instead of id="foo") creates data-bind attribute', function() {
+    	var bindings = {
+    		click: ['makeImmortal']
+    	};
+    	
+    	ko.unobtrusive.createBindings(bindings);
+    	
+    	$('#wizardPerson').each(function() {
+    		ok(!!this.text.match("data-bind='click: makeImmortal'"));    	
+    	});    	
+    });
 
-    test('createBindings with comprehensive bindings property creates data-bind attributes', function() {
+    /*
+	test('createBindings with comprehensive bindings property creates data-bind attributes', function() {
         var bindings = {
             text: [ 'languageToAdd', 'name', 'bio', 'twitterHandle', 'state', 'photoUrl',
                     {languageList: 'languages'} ],
@@ -197,11 +234,12 @@ $(function() {
 
         //tests
     });
+    */   
+    
 
     //Add'l Features
     // 1) text binding for spans
-    // 1) enabled binding
-    // 2) Working with data-bind values in templates
+    // 2) enabled binding
     // 3) selectionOptions binding
-    // 4) other bindings (click, submit, enable, disable, html, css, attr, style) 
+    // 4) other bindings (submit, enable, disable, html, css, attr, style) 
 });

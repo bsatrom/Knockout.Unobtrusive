@@ -15,7 +15,7 @@
   var __hasProp = Object.prototype.hasOwnProperty;
   ko.unobtrusive = {
     createBindings: function(bindings) {
-      var checkedKey, createElementBinding, customKey, getElement, optionsKey, setElementBinding, templateKey, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
+      var checkedKey, clickKey, createElementBinding, customKey, getElement, optionsKey, setElementBinding, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
       if (!bindings) {
         bindings = ko.unobtrusive.bindings;
       }
@@ -24,7 +24,7 @@
         el = document.getElementById(id) || document.getElementsByName(id)[0];
         if (!el) {
           id = id.charAt(0).toUpperCase() + id.slice(1);
-          el = document.getElementById(id);
+          el = document.getElementById(id) || document.getElementsByName(id)[0];
         }
         return el;
       };
@@ -37,6 +37,21 @@
             value = "" + existing + ", " + value;
           }
           return el.setAttribute("data-bind", value);
+        } else {
+          el = $('script[type$=html], script[type$=x-jquery-tmpl]');
+          if (el) {
+            return el.each(function() {
+              var boundText;
+              while (this.text.match("= ")) {
+                this.text = this.text.replace("= ", "=");
+              }
+              boundText = this.text.replace('id="' + id + '"', 'data-bind="' + value + '"');
+              if (boundText === this.text) {
+                boundText = this.text.replace("id='" + id + "'", "data-bind='" + value + "'");
+              }
+              return this.text = boundText;
+            });
+          }
         }
       };
       createElementBinding = function(element, koBinding) {
@@ -81,10 +96,16 @@
         value = _ref4[checkedKey];
         createElementBinding(bindings.checked[checkedKey], "checked");
       }
-      _ref5 = bindings.custom;
-      for (customKey in _ref5) {
-        if (!__hasProp.call(_ref5, customKey)) continue;
-        value = _ref5[customKey];
+      _ref5 = bindings.click;
+      for (clickKey in _ref5) {
+        if (!__hasProp.call(_ref5, clickKey)) continue;
+        value = _ref5[clickKey];
+        createElementBinding(bindings.click[clickKey], "click");
+      }
+      _ref6 = bindings.custom;
+      for (customKey in _ref6) {
+        if (!__hasProp.call(_ref6, customKey)) continue;
+        value = _ref6[customKey];
         createElementBinding(customKey, bindings.custom[customKey]);
       }
       _ref6 = bindings.template;
@@ -103,6 +124,7 @@
     options: [],
     checked: [],
     custom: {},
+    click: [],
     template: []
   };
 }).call(this);
