@@ -11,11 +11,10 @@
   ----------------------------
   Knockout.Unobtrusive
   ----------------------------
-  */
-  var __hasProp = Object.prototype.hasOwnProperty;
+  */  var __hasProp = Object.prototype.hasOwnProperty;
   ko.unobtrusive = {
     createBindings: function(bindings) {
-      var checkedKey, clickKey, createElementBinding, customKey, getElement, optionsKey, setElementBinding, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
+      var checkedKey, clickKey, createElementBinding, customKey, getElement, optionsKey, setElementBinding, templateKey, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _results;
       if (!bindings) {
         bindings = ko.unobtrusive.bindings;
       }
@@ -108,11 +107,11 @@
         value = _ref6[customKey];
         createElementBinding(customKey, bindings.custom[customKey]);
       }
-      _ref6 = bindings.template;
+      _ref7 = bindings.template;
       _results = [];
-      for (templateKey in _ref6) {
-        if (!__hasProp.call(_ref6, templateKey)) continue;
-        value = _ref6[templateKey];
+      for (templateKey in _ref7) {
+        if (!__hasProp.call(_ref7, templateKey)) continue;
+        value = _ref7[templateKey];
         _results.push(createElementBinding(bindings.template[templateKey], "template"));
       }
       return _results;
@@ -123,8 +122,8 @@
     text: [],
     options: [],
     checked: [],
-    custom: {},
     click: [],
+    custom: {},
     template: []
   };
 }).call(this);
