@@ -1,4 +1,6 @@
-test('createBindings with value property on bindings object creates data-bind attribute', function() {
+module('createBindings');
+
+test('value property on bindings object creates data-bind attribute', function() {
     var bindings = {
         value: ['name']
     };
@@ -8,7 +10,7 @@ test('createBindings with value property on bindings object creates data-bind at
     ok($('#name').data('bind') === 'value: name');
 });
 
-test('createBindings with expanded value property on bindings object creates data-bind attribute', function() {
+test('expanded value property on bindings object creates data-bind attribute', function() {
     var bindings = {
         value: [{name: "foo"}]
     }
@@ -18,7 +20,7 @@ test('createBindings with expanded value property on bindings object creates dat
     ok($('#name').data('bind') === 'value: foo');
 }); 
 
-test('createBindings with combination of expanded and non-expanded value properties creates data-bind attribute', function() {
+test('combination of expanded and non-expanded value properties creates data-bind attribute', function() {
     var bindings = {
         value: [{name: "foo"}, "email"]
     }
@@ -29,7 +31,7 @@ test('createBindings with combination of expanded and non-expanded value propert
     ok($('#email').data('bind') === 'value: email');
 });
 
-test('createBindings with no empty bindings object does not throw an exception', function() {
+test('no empty bindings object does not throw an exception', function() {
     var bindings = {};
 
     ko.unobtrusive.createBindings(bindings);
@@ -67,7 +69,7 @@ test('createBindings on fields with name fields instead of id fields creates dat
     equal($('input[name=FacebookUrl]').data('bind'), 'value: facebookUrl');
 });
 
-test('createBindings with text property on bindings object creates data-bind attribute', function() {
+test('text property on bindings object creates data-bind attribute', function() {
     var bindings = {
         text: ['displayName']
     };
@@ -77,7 +79,7 @@ test('createBindings with text property on bindings object creates data-bind att
     ok($('#displayName').data('bind') === 'text: displayName');
 });
 
-test('createBindings with combination of expanded and non-expanded text properties creates data-bind attribute', function() {
+test('combination of expanded and non-expanded text properties creates data-bind attribute', function() {
     var bindings = {
         text: [{displayName: "foo"}, "displayEmail"]
     }
@@ -88,7 +90,7 @@ test('createBindings with combination of expanded and non-expanded text properti
     ok($('#displayEmail').data('bind') === 'text: displayEmail');
 });
 
-test('createBindings with options property on bindings object creates data-bind attribute', function() {
+test('options property on bindings object creates data-bind attribute', function() {
     var bindings = {
         options: ['languages']
     };
@@ -98,7 +100,7 @@ test('createBindings with options property on bindings object creates data-bind 
     ok($('#languages').data('bind') === 'options: languages');
 }); 
 
-test('createBindings with expanded options property on creates data-bind attribute', function() {
+test('expanded options property on creates data-bind attribute', function() {
     var bindings = {
         options: [{topics: 'foo'}]
     };
@@ -108,7 +110,7 @@ test('createBindings with expanded options property on creates data-bind attribu
     ok($('#topics').data('bind') === 'options: foo');
 });
 
-test('createBindings with combination of expanded and non-expanded options properties creates data-bind attribute', function() {
+test('combination of expanded and non-expanded options properties creates data-bind attribute', function() {
     var bindings = {
         options: ["languages", {topics: "bar"}]
     }
@@ -119,7 +121,7 @@ test('createBindings with combination of expanded and non-expanded options prope
     ok($('#languages').data('bind') === 'options: languages');
 });
 
-test('createBindings with checked property on bindings object creates data-bind attribute', function() {
+test('checked property on bindings object creates data-bind attribute', function() {
     var bindings = {
         checked: ['lovesCats']
     };
@@ -129,7 +131,7 @@ test('createBindings with checked property on bindings object creates data-bind 
     ok($('#lovesCats').data('bind') === 'checked: lovesCats');
 }); 
 
-test('createBindings with expanded checked property on creates data-bind attribute', function() {
+test('expanded checked property on creates data-bind attribute', function() {
     var bindings = {
         checked: [{lovesMeatloaf: 'foo'}]
     };
@@ -139,7 +141,7 @@ test('createBindings with expanded checked property on creates data-bind attribu
     ok($('#lovesMeatloaf').data('bind') === 'checked: foo');
 });
 
-test('createBindings with combination of expanded and non-expanded checked properties creates data-bind attribute', function() {
+test('combination of expanded and non-expanded checked properties creates data-bind attribute', function() {
     var bindings = {
         checked: [{lovesMeatloaf: "bar"}, "lovesCats"]
     };
@@ -150,7 +152,7 @@ test('createBindings with combination of expanded and non-expanded checked prope
     ok($('#lovesCats').data('bind') === 'checked: lovesCats');
 });
 
-test('createBindings with custom bindings property creates data-bind attribute', function() {
+test('custom bindings property creates data-bind attribute', function() {
     var bindings = {
         custom: {
             photo: "attr: {src: photoUrl, alt: name}"
@@ -162,7 +164,7 @@ test('createBindings with custom bindings property creates data-bind attribute',
     ok($("#photo").data('bind') === "attr: {src: photoUrl, alt: name}");
 });
 
-test('createBindings with existing bindings defined preserves existing attribute values', function() {
+test('existing bindings defined preserves existing attribute values', function() {
     var bindings = {
         value: ['topicToAdd'],
         custom: {
@@ -175,7 +177,7 @@ test('createBindings with existing bindings defined preserves existing attribute
     ok($('#topicToAdd').data("bind") === 'value: topicToAdd, valueUpdate: "afterkeydown"');
 });
 
-test('createBindings with (double-quotes) binding defined in a template block creates data-bind attribute', function() {
+test('double-quotes binding defined in a template block creates data-bind attribute', function() {
   var bindings = {
     click: ['makeOlder']
   };
@@ -187,7 +189,7 @@ test('createBindings with (double-quotes) binding defined in a template block cr
   });    	
 });
 
-test('createBindings with (single-quotes) binding defined in a template block creates data-bind attribute', function() {
+test('single-quotes binding defined in a template block creates data-bind attribute', function() {
   var bindings = {
     click: ['makeYounger']
   };
@@ -199,7 +201,7 @@ test('createBindings with (single-quotes) binding defined in a template block cr
   });    	
 });
 
-test('createBindings with binding defined in a template block and an extra space in the html (id= "foo" instead of id="foo") creates data-bind attribute', function() {
+test('binding defined in a template block and an extra space in the html (id= "foo" instead of id="foo") creates data-bind attribute', function() {
   var bindings = {
     click: ['makeImmortal']
   };
@@ -212,7 +214,7 @@ test('createBindings with binding defined in a template block and an extra space
 });
 
 /*
-test('createBindings with comprehensive bindings property creates data-bind attributes', function() {
+test('comprehensive bindings property creates data-bind attributes', function() {
     var bindings = {
         text: [ 'languageToAdd', 'name', 'bio', 'twitterHandle', 'state', 'photoUrl',
                 {languageList: 'languages'} ],
