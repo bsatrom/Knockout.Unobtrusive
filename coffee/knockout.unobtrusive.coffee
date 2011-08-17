@@ -25,27 +25,38 @@ ko.unobtrusive = {
         
       return el
     
+    setAttribute = (el, id, value) ->
+    		existing = el.getAttribute "data-bind"
+    		
+    		if existing
+    			value = "#{existing}, #{value}"
+    		
+    		el.setAttribute "data-bind", value
+      
     setElementBinding = (id, value) ->
       el = getElement id;
       if el
-        existing = el.getAttribute "data-bind"
-        
-        if existing
-          value = "#{existing}, #{value}"
-          
-        el.setAttribute "data-bind", value
+        setAttribute el, id, value
       else
       	el = $('script[type$=html], script[type$=x-jquery-tmpl]')
       	
       	if(el)
       	  el.each ->
-      	  	while @text.match "= "
-      	  		@text = @text.replace "= ", "="
-      	  	boundText = @text.replace 'id="' + id + '"', 'data-bind="' + value + '"'
+      	  	divId = "#{@.id}-div"
       	  	
-      	  	if boundText is @text
-      	  	  boundText = @text.replace "id='#{id}'", "data-bind='#{value}'"
-      	  	@text = boundText
+      	  	tempEl = document.createElement "div"
+      	  	tempEl.setAttribute "style", "visibility:hidden"
+      	  	tempEl.id = divId
+      	  	tempEl.innerHTML = @.innerHTML
+      	  	document.body.appendChild tempEl
+      	  	
+      	  	boundEl = getElement id
+      	  	
+      	  	if boundEl
+      	  		setAttribute boundEl, id, value
+      	  		@innerHTML = tempEl.innerHTML
+      	  	
+      	  	document.body.removeChild(tempEl)
     
     createElementBinding = (element, koBinding) ->
       if typeof element is "object"
@@ -73,10 +84,7 @@ ko.unobtrusive = {
     	createElementBinding bindings.click[clickKey], "click"    
     
     for own customKey, value of bindings.custom
-      createElementBinding customKey, bindings.custom[customKey]
-      
-    for own templateKey, value of bindings.template
-      createElementBinding bindings.template[templateKey], "template"
+      createElementBinding customKey, bindings.custom[customKey]      
 }
 
 ko.unobtrusive.bindings = {
@@ -86,5 +94,4 @@ ko.unobtrusive.bindings = {
   checked: []
   click: []
   custom: {}
-  template: []
 }

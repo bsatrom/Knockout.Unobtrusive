@@ -14,7 +14,7 @@
   */  var __hasProp = Object.prototype.hasOwnProperty;
   ko.unobtrusive = {
     createBindings: function(bindings) {
-      var checkedKey, clickKey, createElementBinding, customKey, getElement, optionsKey, setElementBinding, templateKey, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _results;
+      var checkedKey, clickKey, createElementBinding, customKey, getElement, optionsKey, setAttribute, setElementBinding, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
       if (!bindings) {
         bindings = ko.unobtrusive.bindings;
       }
@@ -27,28 +27,36 @@
         }
         return el;
       };
+      setAttribute = function(el, id, value) {
+        var existing;
+        existing = el.getAttribute("data-bind");
+        if (existing) {
+          value = "" + existing + ", " + value;
+        }
+        return el.setAttribute("data-bind", value);
+      };
       setElementBinding = function(id, value) {
-        var el, existing;
+        var el;
         el = getElement(id);
         if (el) {
-          existing = el.getAttribute("data-bind");
-          if (existing) {
-            value = "" + existing + ", " + value;
-          }
-          return el.setAttribute("data-bind", value);
+          return setAttribute(el, id, value);
         } else {
           el = $('script[type$=html], script[type$=x-jquery-tmpl]');
           if (el) {
             return el.each(function() {
-              var boundText;
-              while (this.text.match("= ")) {
-                this.text = this.text.replace("= ", "=");
+              var boundEl, divId, tempEl;
+              divId = "" + this.id + "-div";
+              tempEl = document.createElement("div");
+              tempEl.setAttribute("style", "visibility:hidden");
+              tempEl.id = divId;
+              tempEl.innerHTML = this.innerHTML;
+              document.body.appendChild(tempEl);
+              boundEl = getElement(id);
+              if (boundEl) {
+                setAttribute(boundEl, id, value);
+                this.innerHTML = tempEl.innerHTML;
               }
-              boundText = this.text.replace('id="' + id + '"', 'data-bind="' + value + '"');
-              if (boundText === this.text) {
-                boundText = this.text.replace("id='" + id + "'", "data-bind='" + value + "'");
-              }
-              return this.text = boundText;
+              return document.body.removeChild(tempEl);
             });
           }
         }
@@ -102,17 +110,11 @@
         createElementBinding(bindings.click[clickKey], "click");
       }
       _ref6 = bindings.custom;
+      _results = [];
       for (customKey in _ref6) {
         if (!__hasProp.call(_ref6, customKey)) continue;
         value = _ref6[customKey];
-        createElementBinding(customKey, bindings.custom[customKey]);
-      }
-      _ref7 = bindings.template;
-      _results = [];
-      for (templateKey in _ref7) {
-        if (!__hasProp.call(_ref7, templateKey)) continue;
-        value = _ref7[templateKey];
-        _results.push(createElementBinding(bindings.template[templateKey], "template"));
+        _results.push(createElementBinding(customKey, bindings.custom[customKey]));
       }
       return _results;
     }
@@ -123,7 +125,6 @@
     options: [],
     checked: [],
     click: [],
-    custom: {},
-    template: []
+    custom: {}
   };
 }).call(this);
