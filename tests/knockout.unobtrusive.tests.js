@@ -1,13 +1,55 @@
-module('createBindings');
+module = QUnit.module;
 
-test('value property on bindings object creates data-bind attribute', function() {
-    var bindings = {
-        value: ['name']
-    };
+module('createBindings', {
+  teardown: function() {
+    if(!QUnit.reset) {
+      rebuildDom();
+    }
+  }
+});
 
-    ko.unobtrusive.createBindings(bindings);
+var get = (function() {
+  var camalizer, dataset,
+      dataMatcher = /data-(.+)/,
+      dashAlphaMatcher = /-([a-z])/ig;
+  
+  camalizer = function(x, letter) {
+    return letter.toUpperCase();
+  };
+  
+  dataset = function(el) {
+    var attribute,
+        attributes = el.attributes,
+        data = {};
+    
+    for(var i = 0, il = attributes.length; i < il; i++) {
+      attribute = attributes[i];
+      if(dataMatcher.test(attribute.name)) {
+        data[attribute.name.match(dataMatcher)[1].replace(dashAlphaMatcher, camalizer)] = attribute.value;
+      }
+    }
+    
+    return data;
+  };
+  
+  return function(id) {
+    var el = document.getElementById(id);
+    if(!el.dataset || el.dataset.__was_faked__) {
+      el.dataset = dataset(el);
+      el.dataset.__was_faked__ = true;
+    }
+    return el;
+  };
+})();
 
-    equal($('#name').data('bind'),'value: name');
+test('value property on binding object creates data-bind attribute', function() {
+  var bindings = {
+    value: ['name']
+  };
+  
+  ko.unobtrusive.createBindings(bindings);
+  
+  equals(get('name').dataset['bind'], 'value: name');
 });
 
 test('expanded value property on bindings object creates data-bind attribute', function() {
@@ -17,8 +59,10 @@ test('expanded value property on bindings object creates data-bind attribute', f
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#name').data('bind'), 'value: foo');
+    equal(get('name').dataset['bind'], 'value: foo');
 }); 
+
+/*
 
 test('combination of expanded and non-expanded value properties creates data-bind attribute', function() {
     var bindings = {

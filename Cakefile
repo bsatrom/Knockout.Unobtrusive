@@ -45,7 +45,7 @@ task 'tests', "run tests for #{file}", ->
     sys = require 'sys'
     colors = require 'colors'
     test = 
-      deps: ["./tests/test-env.js", "./lib/knockout-1.2.1.js", "./tests/test-env-post.js"]
+      deps: ["./tests/test-env.js", "./lib/knockout-1.2.1.js"]
       code: "./#{output}/#{file}.js",
       tests: "./tests/#{file}.tests.js"
 

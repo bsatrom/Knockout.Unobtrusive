@@ -6,12 +6,17 @@ var jsdom = require('jsdom'),
     navigator = {
       userAgent: 'node-js'
     },
-    $ = require('jquery');
+    $ = require('jquery').create(window);
 
     
 window.navigator = navigator;
     
-this.window = window;
-this.navigator = navigator;
-this.document = window.document;
-this.$ = $;
+global.window = window;
+global.navigator = navigator;
+global.document = window.document;
+global.$ = $;
+
+global.rebuildDom = function() {
+  global.document = jsdom.jsdom(dom);
+  global.window = global.document.createWindow();
+};
