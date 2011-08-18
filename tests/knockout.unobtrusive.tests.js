@@ -34,6 +34,11 @@ var get = (function() {
   
   return function(id) {
     var el = document.getElementById(id);
+    
+    if(!el) {
+      el = document.querySelectorAll(id)[0];
+    }
+    
     if(!el.dataset) {
       el.dataset = dataset(el);
     }
@@ -61,8 +66,6 @@ test('expanded value property on bindings object creates data-bind attribute', f
     equal(get('name').dataset['bind'], 'value: foo');
 }); 
 
-/*
-
 test('combination of expanded and non-expanded value properties creates data-bind attribute', function() {
     var bindings = {
         value: [{name: "foo"}, "email"]
@@ -70,8 +73,8 @@ test('combination of expanded and non-expanded value properties creates data-bin
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#name').data('bind'), 'value: foo');
-    equal($('#email').data('bind'), 'value: email');
+    equal(get('name').dataset['bind'], 'value: foo');
+    equal(get('email').dataset['bind'], 'value: email');
 });
 
 test('no empty bindings object does not throw an exception', function() {
@@ -79,7 +82,7 @@ test('no empty bindings object does not throw an exception', function() {
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#name').data('bind'), undefined);
+    ok(!get('name').dataset['bind']);
 });
 
 test('Pascal-cased fields matches to value bindings in a case-insensitive way', function() {
@@ -89,7 +92,7 @@ test('Pascal-cased fields matches to value bindings in a case-insensitive way', 
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#TwitterHandle').data('bind'), 'value: twitterHandle');
+    equal(get('TwitterHandle').dataset['bind'], 'value: twitterHandle');
 });
 
 test('fields with name fields instead of id fields creates data-bind attributes', function() {
@@ -99,18 +102,19 @@ test('fields with name fields instead of id fields creates data-bind attributes'
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('input[name=occupation]').data('bind'), 'value: occupation');
+    equal(get('input[name=occupation]').dataset['bind'], 'value: occupation');
 });
 
- test('Pascal-cased fields, with name instead of id set, matches to value bindings in a case-insensitive way', function() {
+test('Pascal-cased fields, with name instead of id set, matches to value bindings in a case-insensitive way', function() {
     var bindings = {
         value: ['facebookUrl']
     };
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('input[name=FacebookUrl]').data('bind'), 'value: facebookUrl');
+    equal(get('input[name=FacebookUrl]').dataset['bind'], 'value: facebookUrl');
 });
+
 
 test('text property on bindings object creates data-bind attribute', function() {
     var bindings = {
@@ -119,7 +123,7 @@ test('text property on bindings object creates data-bind attribute', function() 
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#displayName').data('bind'), 'text: displayName');
+    equal(get('#displayName').dataset['bind'], 'text: displayName');
 });
 
 test('combination of expanded and non-expanded text properties creates data-bind attribute', function() {
@@ -129,8 +133,8 @@ test('combination of expanded and non-expanded text properties creates data-bind
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#displayName').data('bind'), 'text: foo');
-    equal($('#displayEmail').data('bind'), 'text: displayEmail');
+    equal(get('#displayName').dataset['bind'], 'text: foo');
+    equal(get('#displayEmail').dataset['bind'], 'text: displayEmail');
 });
 
 test('options property on bindings object creates data-bind attribute', function() {
@@ -140,7 +144,7 @@ test('options property on bindings object creates data-bind attribute', function
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#languages').data('bind'), 'options: languages');
+    equal(get('#languages').dataset['bind'], 'options: languages');
 }); 
 
 test('expanded options property on creates data-bind attribute', function() {
@@ -150,7 +154,7 @@ test('expanded options property on creates data-bind attribute', function() {
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#topics').data('bind'), 'options: foo');
+    equal(get('#topics').dataset['bind'], 'options: foo');
 });
 
 test('combination of expanded and non-expanded options properties creates data-bind attribute', function() {
@@ -160,8 +164,8 @@ test('combination of expanded and non-expanded options properties creates data-b
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#topics').data('bind'), 'options: bar');
-    equal($('#languages').data('bind'), 'options: languages');
+    equal(get('#topics').dataset['bind'], 'options: bar');
+    equal(get('#languages').dataset['bind'], 'options: languages');
 });
 
 test('checked property on bindings object creates data-bind attribute', function() {
@@ -171,7 +175,7 @@ test('checked property on bindings object creates data-bind attribute', function
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#lovesCats').data('bind'), 'checked: lovesCats');
+    equal(get('#lovesCats').dataset['bind'], 'checked: lovesCats');
 }); 
 
 test('expanded checked property on creates data-bind attribute', function() {
@@ -181,7 +185,7 @@ test('expanded checked property on creates data-bind attribute', function() {
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#lovesMeatloaf').data('bind'), 'checked: foo');
+    equal(get('#lovesMeatloaf').dataset['bind'], 'checked: foo');
 });
 
 test('combination of expanded and non-expanded checked properties creates data-bind attribute', function() {
@@ -191,8 +195,8 @@ test('combination of expanded and non-expanded checked properties creates data-b
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#lovesMeatloaf').data('bind'), 'checked: bar');
-    equal($('#lovesCats').data('bind'), 'checked: lovesCats');
+    equal(get('#lovesMeatloaf').dataset['bind'], 'checked: bar');
+    equal(get('#lovesCats').dataset['bind'], 'checked: lovesCats');
 });
 
 test('custom bindings property creates data-bind attribute', function() {
@@ -204,7 +208,7 @@ test('custom bindings property creates data-bind attribute', function() {
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($("#photo").data('bind'), "attr: {src: photoUrl, alt: name}");
+    equal(get("#photo").dataset['bind'], "attr: {src: photoUrl, alt: name}");
 });
 
 test('existing bindings defined preserves existing attribute values', function() {
@@ -217,9 +221,10 @@ test('existing bindings defined preserves existing attribute values', function()
 
     ko.unobtrusive.createBindings(bindings);
 
-    equal($('#topicToAdd').data("bind"), 'value: topicToAdd, valueUpdate: "afterkeydown"');
+    equal(get('#topicToAdd').dataset["bind"], 'value: topicToAdd, valueUpdate: "afterkeydown"');
 });
 
+/*
 test('double-quotes binding defined in a template block creates data-bind attribute', function() {
   var bindings = {
     click: ['makeOlder']
