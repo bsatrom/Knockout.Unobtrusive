@@ -68,7 +68,7 @@ task 'watch', 'Watch prod source files and build changes', ->
             try
               invoke 'build'
               console.log 'build complete'
-              #invoke 'tests'
+              invoke 'tests'
             catch e
               console.log 'Oh snap, someething went wrong!'
               console.log e

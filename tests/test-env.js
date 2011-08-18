@@ -14,6 +14,8 @@ global.window = window;
 global.navigator = navigator;
 global.document = window.document;
 
+global.isNode = true;
+
 require('../lib/knockout-1.2.1.js');
 
 global.ko = window.ko;
