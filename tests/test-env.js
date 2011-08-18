@@ -5,16 +5,18 @@ var jsdom = require('jsdom'),
     window = document.createWindow(), //jsdom.jsdom().createWindow(),
     navigator = {
       userAgent: 'node-js'
-    },
-    $ = require('jquery').create(window);
+    };
 
     
 window.navigator = navigator;
-    
+   
 global.window = window;
 global.navigator = navigator;
 global.document = window.document;
-global.$ = $;
+
+require('../lib/knockout-1.2.1.js');
+
+global.ko = window.ko;
 
 global.rebuildDom = function() {
   global.document = jsdom.jsdom(dom);

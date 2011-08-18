@@ -34,9 +34,8 @@ var get = (function() {
   
   return function(id) {
     var el = document.getElementById(id);
-    if(!el.dataset || el.dataset.__was_faked__) {
+    if(!el.dataset) {
       el.dataset = dataset(el);
-      el.dataset.__was_faked__ = true;
     }
     return el;
   };
