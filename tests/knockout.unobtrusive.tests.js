@@ -197,20 +197,33 @@ test('single-quotes binding defined in a template block creates data-bind attrib
   ko.unobtrusive.createBindings(bindings);
   
   $('#youngerPerson').each(function() {
-    ok(!!this.text.match("data-bind='click: makeYounger'"));    	
+    ok(!!this.text.match('data-bind="click: makeYounger"'));    	
   });    	
 });
 
-test('binding defined in a template block and an extra space in the html (id= "foo" instead of id="foo") creates data-bind attribute', function() {
+test('binding defined in a template block with class attributes creates data-bind attribute', function() {
   var bindings = {
-    click: ['makeImmortal']
+    click: ['toggle']
   };
   
   ko.unobtrusive.createBindings(bindings);
   
-  $('#wizardPerson').each(function() {
-    ok(!!this.text.match("data-bind='click: makeImmortal'"));    	
+  $('#toggle1').each(function() {
+    ok(!!this.text.match('data-bind="click: toggle"'));    	
   });    	
+});
+
+test('bindings defined with same class in a template block and markup creates data-bind attribute', function() {
+  var bindings = {
+    click: ['toggle']
+  };
+  
+  ko.unobtrusive.createBindings(bindings);
+  
+  $('#toggle1').each(function() {
+    ok(!!this.text.match('data-bind="click: toggle"'));    	
+  });    	
+  equal($("#toggle2").data('bind'), "click: toggle");
 });
 
 /*

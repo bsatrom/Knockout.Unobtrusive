@@ -1,5 +1,5 @@
 ###
-Knockout.Unobtrusive v0.1
+Knockout.Unobtrusive v0.2
 
 Copyright (C)2011 Brandon Satrom, Carrot Pants Studios
 Distributed Under MIT License
@@ -25,6 +25,21 @@ ko.unobtrusive = {
         
       return el
     
+    #Not all browsers support document.getElementsByClassName, so I rolls my own
+    getElementsByClassName = (className) ->
+    	if document.getElementsByClassName
+    		document.getElementsByClassName className
+    			
+    	all = document.all or document.getElementsByTagName('*')
+    	match = []
+    	expr = new RegExp "(?:^|\\s)#{className}(?:\\s|$)"
+    	
+    	for element in all
+    		if expr.test(element.className)
+    			match.push(element)
+    			
+    	match
+      
     setAttribute = (el, id, value) ->
     		existing = el.getAttribute "data-bind"
     		
@@ -38,25 +53,29 @@ ko.unobtrusive = {
       if el
         setAttribute el, id, value
       else
-      	el = $('script[type$=html], script[type$=x-jquery-tmpl]')
-      	
-      	if(el)
-      	  el.each ->
-      	  	divId = "#{@.id}-div"
-      	  	
-      	  	tempEl = document.createElement "div"
-      	  	tempEl.setAttribute "style", "visibility:hidden"
-      	  	tempEl.id = divId
-      	  	tempEl.innerHTML = @.innerHTML
-      	  	document.body.appendChild tempEl
-      	  	
-      	  	boundEl = getElement id
-      	  	
-      	  	if boundEl
-      	  		setAttribute boundEl, id, value
-      	  		@innerHTML = tempEl.innerHTML
-      	  	
-      	  	document.body.removeChild(tempEl)
+      	scripts = document.getElementsByTagName "script"
+      	for script in scripts
+      		if not script.type.match("html || x-jquery-tmpl") or not script.text.match(id)
+      			continue
+      		
+      		divId = "#{script.id}-div"
+      			
+      		tempEl = document.createElement "div"
+      		tempEl.setAttribute "style", "visibility:hidden"
+      		tempEl.id = divId
+      		tempEl.innerHTML = script.text
+      		document.body.appendChild tempEl
+      			
+      		boundEl = getElement id
+      			
+      		if not boundEl
+      			boundEl = getElementsByClassName(id)[0]
+      			      			
+      		if boundEl
+      			setAttribute boundEl, id, value
+      			script.text = tempEl.innerHTML
+      			
+      		document.body.removeChild(tempEl)
     
     createElementBinding = (element, koBinding) ->
       if typeof element is "object"

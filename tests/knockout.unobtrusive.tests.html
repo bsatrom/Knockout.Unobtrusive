@@ -28,16 +28,24 @@
             <span id="displayEmail"></span>
             <script id='olderPerson' type='text/html'>
 						    ${ name } is ${ age } years old
-						    <button id="makeOlder">Make older</button>
+						    <input type="button" id="makeOlder" value="Make older" />
 						</script>
-						<script id='youngerPerson' type='x-jquery-tmpl'>
+						<script id='youngerPerson' type='text/x-jquery-tmpl'>
 						    ${ name } is ${ age } years old
-						    <button id='makeYounger'>Make immortal</button>
+						    <input type="button" id='makeYounger' value="Make older" />
 						</script>
 						<script id='wizardPerson' type='x-jquery-tmpl'>
 						    ${ name } is ${ age } years old
-						    <button id= 'makeImmortal'>Make immortal</button>
+						    <input type="button" id= 'makeImmortal' value="Make older" />
 						</script>
+						<script id='toggle1' type='x-jquery-tmpl'>
+						    Current value is ${ toggleVal }
+						    <input type="button" class='toggle' value="Make older" />
+						</script>
+						<div id='toggle2' id="toggleTemplate">
+						    ${ name } is ${ age } years old
+						    <input type="button" class='toggle' value="Make older" />
+						</div>
         </div>
         <script src="../lib/jquery-1.6.min.js"></script>        
         <script src="../lib/qunit.js"></script>

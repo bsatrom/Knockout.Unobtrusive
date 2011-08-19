@@ -1,6 +1,6 @@
 (function() {
   /*
-  Knockout.Unobtrusive v0.1
+  Knockout.Unobtrusive v0.2
   
   Copyright (C)2011 Brandon Satrom, Carrot Pants Studios
   Distributed Under MIT License
@@ -14,7 +14,7 @@
   */  var __hasProp = Object.prototype.hasOwnProperty;
   ko.unobtrusive = {
     createBindings: function(bindings) {
-      var checkedKey, clickKey, createElementBinding, customKey, getElement, optionsKey, setAttribute, setElementBinding, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
+      var checkedKey, clickKey, createElementBinding, customKey, getElement, getElementsByClassName, optionsKey, setAttribute, setElementBinding, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
       if (!bindings) {
         bindings = ko.unobtrusive.bindings;
       }
@@ -27,6 +27,22 @@
         }
         return el;
       };
+      getElementsByClassName = function(className) {
+        var all, element, expr, match, _i, _len;
+        if (document.getElementsByClassName) {
+          document.getElementsByClassName(className);
+        }
+        all = document.all || document.getElementsByTagName('*');
+        match = [];
+        expr = new RegExp("(?:^|\\s)" + className + "(?:\\s|$)");
+        for (_i = 0, _len = all.length; _i < _len; _i++) {
+          element = all[_i];
+          if (expr.test(element.className)) {
+            match.push(element);
+          }
+        }
+        return match;
+      };
       setAttribute = function(el, id, value) {
         var existing;
         existing = el.getAttribute("data-bind");
@@ -36,29 +52,35 @@
         return el.setAttribute("data-bind", value);
       };
       setElementBinding = function(id, value) {
-        var el;
+        var boundEl, divId, el, script, scripts, tempEl, _i, _len, _results;
         el = getElement(id);
         if (el) {
           return setAttribute(el, id, value);
         } else {
-          el = $('script[type$=html], script[type$=x-jquery-tmpl]');
-          if (el) {
-            return el.each(function() {
-              var boundEl, divId, tempEl;
-              divId = "" + this.id + "-div";
-              tempEl = document.createElement("div");
-              tempEl.setAttribute("style", "visibility:hidden");
-              tempEl.id = divId;
-              tempEl.innerHTML = this.innerHTML;
-              document.body.appendChild(tempEl);
-              boundEl = getElement(id);
-              if (boundEl) {
-                setAttribute(boundEl, id, value);
-                this.innerHTML = tempEl.innerHTML;
-              }
-              return document.body.removeChild(tempEl);
-            });
+          scripts = document.getElementsByTagName("script");
+          _results = [];
+          for (_i = 0, _len = scripts.length; _i < _len; _i++) {
+            script = scripts[_i];
+            if (!script.type.match("html || x-jquery-tmpl") || !script.text.match(id)) {
+              continue;
+            }
+            divId = "" + script.id + "-div";
+            tempEl = document.createElement("div");
+            tempEl.setAttribute("style", "visibility:hidden");
+            tempEl.id = divId;
+            tempEl.innerHTML = script.text;
+            document.body.appendChild(tempEl);
+            boundEl = getElement(id);
+            if (!boundEl) {
+              boundEl = getElementsByClassName(id)[0];
+            }
+            if (boundEl) {
+              setAttribute(boundEl, id, value);
+              script.text = tempEl.innerHTML;
+            }
+            _results.push(document.body.removeChild(tempEl));
           }
+          return _results;
         }
       };
       createElementBinding = function(element, koBinding) {
