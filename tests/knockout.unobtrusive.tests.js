@@ -185,7 +185,7 @@ test('double-quotes binding defined in a template block creates data-bind attrib
   ko.unobtrusive.createBindings(bindings);
   
   $('#olderPerson').each(function() {
-    ok(!!this.text.match('data-bind="click: makeOlder"'));    	
+    equal(!!this.text.match('data-bind="click: makeOlder"'), true);    	
   });    	
 });
 
@@ -197,7 +197,7 @@ test('single-quotes binding defined in a template block creates data-bind attrib
   ko.unobtrusive.createBindings(bindings);
   
   $('#youngerPerson').each(function() {
-    ok(!!this.text.match('data-bind="click: makeYounger"'));    	
+    equal(!!this.text.match('data-bind="click: makeYounger"'), true);    	
   });    	
 });
 
@@ -209,7 +209,7 @@ test('binding defined in a template block with class attributes creates data-bin
   ko.unobtrusive.createBindings(bindings);
   
   $('#toggle1').each(function() {
-    ok(!!this.text.match('data-bind="click: toggle"'));    	
+    equal(!!this.text.match('data-bind="click: toggle"'), true);    	
   });    	
 });
 
@@ -221,9 +221,9 @@ test('bindings defined with same class in a template block and markup creates da
   ko.unobtrusive.createBindings(bindings);
   
   $('#toggle1').each(function() {
-    ok(!!this.text.match('data-bind="click: toggle"'));    	
+    equal(!!this.text.match('data-bind="click: toggle"'), true);    	
   });    	
-  equal($("#toggle2").data('bind'), "click: toggle");
+  equal($("input[type=button]").data('bind'), "click: toggle");
 });
 
 /*

@@ -68,13 +68,15 @@ ko.unobtrusive = {
       			
       		boundEl = getElement id
       			
-      		if not boundEl
-      			boundEl = getElementsByClassName(id)[0]
-      			      			
       		if boundEl
       			setAttribute boundEl, id, value
-      			script.text = tempEl.innerHTML
+      		else
+      			boundElements = getElementsByClassName(id)      			
       			
+      			for boundElement in boundElements
+      				setAttribute boundElement, id, value
+      			
+      		script.text = tempEl.innerHTML      				
       		document.body.removeChild(tempEl)
     
     createElementBinding = (element, koBinding) ->

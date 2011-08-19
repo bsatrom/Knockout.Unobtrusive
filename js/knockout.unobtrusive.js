@@ -52,7 +52,7 @@
         return el.setAttribute("data-bind", value);
       };
       setElementBinding = function(id, value) {
-        var boundEl, divId, el, script, scripts, tempEl, _i, _len, _results;
+        var boundEl, boundElement, boundElements, divId, el, script, scripts, tempEl, _i, _j, _len, _len2, _results;
         el = getElement(id);
         if (el) {
           return setAttribute(el, id, value);
@@ -71,13 +71,16 @@
             tempEl.innerHTML = script.text;
             document.body.appendChild(tempEl);
             boundEl = getElement(id);
-            if (!boundEl) {
-              boundEl = getElementsByClassName(id)[0];
-            }
             if (boundEl) {
               setAttribute(boundEl, id, value);
-              script.text = tempEl.innerHTML;
+            } else {
+              boundElements = getElementsByClassName(id);
+              for (_j = 0, _len2 = boundElements.length; _j < _len2; _j++) {
+                boundElement = boundElements[_j];
+                setAttribute(boundElement, id, value);
+              }
             }
+            script.text = tempEl.innerHTML;
             _results.push(document.body.removeChild(tempEl));
           }
           return _results;
