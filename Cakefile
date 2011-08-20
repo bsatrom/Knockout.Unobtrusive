@@ -45,7 +45,7 @@ task 'tests', "run tests for #{file}", ->
     sys = require 'sys'
     colors = require 'colors'
     test = 
-      deps: ["./tests/test-env.js", "./lib/knockout-1.2.1.js", "./tests/test-env-post.js"]
+      deps: ["./tests/test-env.js"]
       code: "./#{output}/#{file}.js",
       tests: "./tests/#{file}.tests.js"
 
@@ -68,7 +68,7 @@ task 'watch', 'Watch prod source files and build changes', ->
             try
               invoke 'build'
               console.log 'build complete'
-              #invoke 'tests'
+              invoke 'tests'
             catch e
               console.log 'Oh snap, someething went wrong!'
               console.log e
