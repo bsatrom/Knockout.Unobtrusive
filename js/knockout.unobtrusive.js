@@ -15,7 +15,7 @@
   var __hasProp = Object.prototype.hasOwnProperty;
   ko.unobtrusive = {
     createBindings: function(bindings) {
-      var checkedKey, clickKey, createElementBinding, customKey, getElement, getElementsByClassName, optionsKey, setAttribute, setElementBinding, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
+      var checkedKey, clickKey, createElementBinding, customKey, getElement, getElementsByClassName, optionsKey, quoteAttributes, setAttribute, setElementBinding, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
       if (!bindings) {
         bindings = ko.unobtrusive.bindings;
       }
@@ -52,6 +52,18 @@
         }
         return el.setAttribute("data-bind", value);
       };
+      quoteAttributes = function(text, id) {
+        if (text.match("class=" + id)) {
+          return text.replace("class=" + id, "class='" + id + "'");
+        }
+        if (text.match("id=" + id)) {
+          return text.replace("id=" + id, "id='" + id + "'");
+        }
+        if (text.match("name=" + id)) {
+          return text.replace("name=" + id, "name='" + id + "'");
+        }
+        return text;
+      };
       setElementBinding = function(id, value) {
         var boundEl, boundElement, boundElements, divId, el, script, scripts, tempEl, _i, _j, _len, _len2, _results;
         el = getElement(id);
@@ -82,6 +94,7 @@
               }
             }
             script.text = tempEl.innerHTML;
+            script.text = quoteAttributes(script.text, id);
             _results.push(document.body.removeChild(tempEl));
           }
           return _results;

@@ -318,7 +318,7 @@
 	  
 	  ko.unobtrusive.createBindings(bindings);
 	  
-	  equal(!!document.getElementById('itemsTmpl').text.match('class="item"'), true);	  
+	  equal(!!document.getElementById('itemsTmpl').text.match("class='item'"), true);	  
 	});
 	
 	/*

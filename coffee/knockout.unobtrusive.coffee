@@ -47,7 +47,19 @@ ko.unobtrusive = {
     			value = "#{existing}, #{value}"
     		
     		el.setAttribute "data-bind", value
-      
+  			
+    quoteAttributes = (text, id) ->      		
+    	if text.match "class=#{id}"
+    		return text.replace "class=#{id}", "class='#{id}'"
+    			
+    	if text.match "id=#{id}"    		
+    		return text.replace "id=#{id}", "id='#{id}'"
+    		
+    	if text.match "name=#{id}"
+    		return text.replace "name=#{id}", "name='#{id}'"
+    	
+    	return text
+    
     setElementBinding = (id, value) ->
       el = getElement id;
       if el
@@ -77,6 +89,9 @@ ko.unobtrusive = {
       				setAttribute boundElement, id, value
       			
       		script.text = tempEl.innerHTML      				
+      		
+      		#make sure that attributes are surrounded by quotes.
+      		script.text = quoteAttributes(script.text, id)
       		document.body.removeChild(tempEl)
     
     createElementBinding = (element, koBinding) ->
