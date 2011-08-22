@@ -10,7 +10,7 @@ source = 'coffee'
 output = 'js'
 
 #wingrr.debug = true
-wingrr.registerApplication "Cake", {image:  "C:/Users/brsatrom.NORTHAMERICA/Dropbox/Development/Knockout.Unobtrusive/build/img/coffee.png"}
+wingrr.registerApplication "Cake", {image:  "https://github.com/bsatrom/Knockout.Unobtrusive/raw/master/build/img/coffee.png"}
 
 clean = ->
 	files = fs.readdirSync "#{output}"
@@ -44,7 +44,7 @@ task 'release', "creates a release of #{file}", ->
     invoke 'build'
     invoke 'tests'
     invoke 'minify'
-    growl.notify 'Release created', {title: 'Knockout.Unobtrusive Release', image: "C:/Users/brsatrom.NORTHAMERICA/Dropbox/Development/Knockout.Unobtrusive/build/img/coffee-success.png"}
+    growl.notify 'Release created', {title: 'Knockout.Unobtrusive Release', image: "https://github.com/bsatrom/Knockout.Unobtrusive/raw/master/build/img/coffee-success.png"}
     
 task 'tests', "run tests for #{file}", ->
     console.log 'Time for some tests! '
@@ -62,16 +62,16 @@ task 'tests', "run tests for #{file}", ->
       if r.errors
         sys.puts 'Uh oh there were errors'.bold.red    
   
-        wingrr.notify 'Uh oh there were errors', {title: 'Knockout.Unobtrusive Tests', image: 'C:/Users/brsatrom.NORTHAMERICA/Dropbox/Development/Knockout.Unobtrusive/build/img/coffee-error.png'}        
+        wingrr.notify 'Uh oh there were errors', {title: 'Knockout.Unobtrusive Tests', image: 'https://github.com/bsatrom/Knockout.Unobtrusive/raw/master/build/img/coffee-error.png'}        
       else
         sys.puts 'All test pass'.green
-        wingrr.notify 'All tests pass', {title: 'Knockout.Unobtrusive Tests', image: "C:/Users/brsatrom.NORTHAMERICA/Dropbox/Development/Knockout.Unobtrusive/build/img/coffee-success.png"}
+        wingrr.notify 'All tests pass', {title: 'Knockout.Unobtrusive Tests', image: "https://github.com/bsatrom/Knockout.Unobtrusive/raw/master/build/img/coffee-success.png"}
         
     runner.run test, report
 
 task 'watch', 'Watch prod source files and build changes', ->
     console.log "Watching for changes in #{source}"
-    wingrr.notify "Watching for changes in #{source}", {title: 'Knockout.Unobtrusive Watch', image: "C:/Users/brsatrom.NORTHAMERICA/Dropbox/Development/Knockout.Unobtrusive/build/img/coffee-success.png"}
+    wingrr.notify "Watching for changes in #{source}", {title: 'Knockout.Unobtrusive Watch', image: "https://github.com/bsatrom/Knockout.Unobtrusive/raw/master/build/img/coffee-success.png"}
 
     fs.watchFile "#{source}/#{file}.coffee", (curr, prev) ->
         if +curr.mtime isnt +prev.mtime
@@ -81,6 +81,6 @@ task 'watch', 'Watch prod source files and build changes', ->
               console.log 'build complete'
               invoke 'tests'
             catch e
-            	wingrr.notify 'Error with CoffeeScript build', {title: 'Knockout.Unobtrusive Watch', image: 'C:/Users/brsatrom.NORTHAMERICA/Dropbox/Development/KNockout.Unobtrusive/build/img/coffee-error.png'}
+            	wingrr.notify 'Error with CoffeeScript build', {title: 'Knockout.Unobtrusive Watch', image: 'https://github.com/bsatrom/Knockout.Unobtrusive/raw/master/build/img/coffee-error.png'}
             	console.log 'Oh snap, something went wrong!'
             	console.log e
