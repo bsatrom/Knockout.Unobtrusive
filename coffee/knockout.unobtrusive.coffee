@@ -1,5 +1,5 @@
 ###
-Knockout.Unobtrusive v0.2
+Knockout.Unobtrusive v0.2 
 
 Copyright (C)2011 Brandon Satrom, Carrot Pants Studios
 Distributed Under MIT License

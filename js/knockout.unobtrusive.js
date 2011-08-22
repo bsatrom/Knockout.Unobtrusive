@@ -1,6 +1,6 @@
 (function() {
   /*
-  Knockout.Unobtrusive v0.2
+  Knockout.Unobtrusive v0.2 
   
   Copyright (C)2011 Brandon Satrom, Carrot Pants Studios
   Distributed Under MIT License
@@ -11,7 +11,8 @@
   ----------------------------
   Knockout.Unobtrusive
   ----------------------------
-  */  var __hasProp = Object.prototype.hasOwnProperty;
+  */
+  var __hasProp = Object.prototype.hasOwnProperty;
   ko.unobtrusive = {
     createBindings: function(bindings) {
       var checkedKey, clickKey, createElementBinding, customKey, getElement, getElementsByClassName, optionsKey, setAttribute, setElementBinding, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _results;

@@ -300,6 +300,27 @@
 	  equal(get('#toggle2btn').data('bind'), "click: toggle");
 	});
 	
+	test('bindings defined with class on li in a template block creates data-bind attribute', function() {
+	  var bindings = {
+	    text: [{item: 'name'}]
+	  };
+	  
+	  ko.unobtrusive.createBindings(bindings);
+	  
+	  equal(!!document.getElementById('itemsTmpl').text.match('data-bind="text: name"'), true);	  
+	});
+	
+	//Test for known issue in IE8< where class is not quoted by innerHTML
+	test('bindings defined with class in a template block properly quotes the class atttribute', function() {
+	  var bindings = {
+	    text: [{item: 'name'}]
+	  };
+	  
+	  ko.unobtrusive.createBindings(bindings);
+	  
+	  equal(!!document.getElementById('itemsTmpl').text.match('class="item"'), true);	  
+	});
+	
 	/*
   test('comprehensive bindings property creates data-bind attributes', function() {
       var bindings = {
