@@ -310,6 +310,26 @@
 	  equal(!!document.getElementById('itemsTmpl').text.match('data-bind="text: name"'), true);	  
 	});
 	
+	test('value binding on textarea creates data-bind attribute', function() {
+      var bindings = {
+          value: ['bio']
+      };
+
+      ko.unobtrusive.createBindings(bindings);
+
+      equal(get('bio').data('bind'), 'value: bio');
+  });
+  
+  test('duplicate binding on element does not create duplicate binding attribute', function() {
+      var bindings = {
+          value: ['bio', 'bio']
+      };
+
+      ko.unobtrusive.createBindings(bindings);
+
+      equal(get('bio').data('bind'), 'value: bio');
+  });
+	
 	//Test for known issue in IE8< where class is not quoted by innerHTML
 	test('bindings defined with class in a template block properly quotes the class atttribute', function() {
 	  var bindings = {
@@ -318,7 +338,7 @@
 	  
 	  ko.unobtrusive.createBindings(bindings);
 	  
-	  equal(!!document.getElementById('itemsTmpl').text.match("class='item'"), true);	  
+	  equal(!!document.getElementById('itemsTmpl').text.match("class='item'") || !!document.getElementById('itemsTmpl').text.match('class="item"'), true);	  
 	});
 	
 	/*

@@ -15,7 +15,7 @@
   var __hasProp = Object.prototype.hasOwnProperty;
   ko.unobtrusive = {
     createBindings: function(bindings) {
-      var checkedKey, clickKey, createElementBinding, customKey, getElement, getElementsByClassName, optionsKey, quoteAttributes, setAttribute, setElementBinding, textKey, value, valueKey, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
+      var bindingKey, bindingValue, createElementBinding, customKey, customValue, getElement, getElementsByClassName, key, quoteAttributes, setAttribute, setElementBinding, value, _results;
       if (!bindings) {
         bindings = ko.unobtrusive.bindings;
       }
@@ -47,20 +47,20 @@
       setAttribute = function(el, id, value) {
         var existing;
         existing = el.getAttribute("data-bind");
-        if (existing) {
+        if (existing && existing !== value) {
           value = "" + existing + ", " + value;
         }
         return el.setAttribute("data-bind", value);
       };
       quoteAttributes = function(text, id) {
-        if (text.match("class=" + id)) {
-          return text.replace("class=" + id, "class='" + id + "'");
-        }
-        if (text.match("id=" + id)) {
-          return text.replace("id=" + id, "id='" + id + "'");
-        }
-        if (text.match("name=" + id)) {
-          return text.replace("name=" + id, "name='" + id + "'");
+        var attribute, matcher, matchers, _i, _len;
+        matchers = ["class", "id", "name"];
+        for (_i = 0, _len = matchers.length; _i < _len; _i++) {
+          matcher = matchers[_i];
+          attribute = "" + matcher + "=" + id;
+          if (text.match(attribute)) {
+            return text.replace(attribute, "" + matcher + "='" + id + "'");
+          }
         }
         return text;
       };
@@ -118,42 +118,28 @@
           }
         }
       };
-      _ref = bindings.value;
-      for (valueKey in _ref) {
-        if (!__hasProp.call(_ref, valueKey)) continue;
-        value = _ref[valueKey];
-        createElementBinding(bindings.value[valueKey], "value");
-      }
-      _ref2 = bindings.text;
-      for (textKey in _ref2) {
-        if (!__hasProp.call(_ref2, textKey)) continue;
-        value = _ref2[textKey];
-        createElementBinding(bindings.text[textKey], "text");
-      }
-      _ref3 = bindings.options;
-      for (optionsKey in _ref3) {
-        if (!__hasProp.call(_ref3, optionsKey)) continue;
-        value = _ref3[optionsKey];
-        createElementBinding(bindings.options[optionsKey], "options");
-      }
-      _ref4 = bindings.checked;
-      for (checkedKey in _ref4) {
-        if (!__hasProp.call(_ref4, checkedKey)) continue;
-        value = _ref4[checkedKey];
-        createElementBinding(bindings.checked[checkedKey], "checked");
-      }
-      _ref5 = bindings.click;
-      for (clickKey in _ref5) {
-        if (!__hasProp.call(_ref5, clickKey)) continue;
-        value = _ref5[clickKey];
-        createElementBinding(bindings.click[clickKey], "click");
-      }
-      _ref6 = bindings.custom;
       _results = [];
-      for (customKey in _ref6) {
-        if (!__hasProp.call(_ref6, customKey)) continue;
-        value = _ref6[customKey];
-        _results.push(createElementBinding(customKey, bindings.custom[customKey]));
+      for (key in bindings) {
+        if (!__hasProp.call(bindings, key)) continue;
+        value = bindings[key];
+        if (key === "custom") {
+          for (customKey in value) {
+            if (!__hasProp.call(value, customKey)) continue;
+            customValue = value[customKey];
+            createElementBinding(customKey, value[customKey]);
+          }
+          continue;
+        }
+        _results.push((function() {
+          var _results2;
+          _results2 = [];
+          for (bindingKey in value) {
+            if (!__hasProp.call(value, bindingKey)) continue;
+            bindingValue = value[bindingKey];
+            _results2.push(createElementBinding(value[bindingKey], key));
+          }
+          return _results2;
+        })());
       }
       return _results;
     }

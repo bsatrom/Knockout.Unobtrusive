@@ -43,21 +43,20 @@ ko.unobtrusive = {
     setAttribute = (el, id, value) ->
     		existing = el.getAttribute "data-bind"
     		
-    		if existing
+    		if existing and existing isnt value    		
     			value = "#{existing}, #{value}"
     		
     		el.setAttribute "data-bind", value
-  			
+  	
+    
     quoteAttributes = (text, id) ->      		
-    	if text.match "class=#{id}"
-    		return text.replace "class=#{id}", "class='#{id}'"
-    			
-    	if text.match "id=#{id}"    		
-    		return text.replace "id=#{id}", "id='#{id}'"
-    		
-    	if text.match "name=#{id}"
-    		return text.replace "name=#{id}", "name='#{id}'"
-    	
+    	matchers = ["class", "id", "name"]
+    
+    	for matcher in matchers
+    		attribute = "#{matcher}=#{id}"
+    		if text.match attribute
+    			return text.replace attribute, "#{matcher}='#{id}'"
+    			    		    	
     	return text
     
     setElementBinding = (id, value) ->
@@ -103,26 +102,18 @@ ko.unobtrusive = {
           setElementBinding element, koBinding
         else
           setElementBinding element, "#{koBinding}: #{element}"
-    
-    for own valueKey, value of bindings.value
-      createElementBinding bindings.value[valueKey], "value"
- 
-    for own textKey, value of bindings.text
-      createElementBinding bindings.text[textKey], "text"
-      
-    for own optionsKey, value of bindings.options
-      createElementBinding bindings.options[optionsKey], "options" 
-    
-    for own checkedKey, value of bindings.checked
-      createElementBinding bindings.checked[checkedKey], "checked"
-    
-    for own clickKey, value of bindings.click
-    	createElementBinding bindings.click[clickKey], "click"    
-    
-    for own customKey, value of bindings.custom
-      createElementBinding customKey, bindings.custom[customKey]      
+  				
+    for own key, value of bindings
+    	if key is "custom"
+    		for own customKey, customValue of value
+      		createElementBinding customKey, value[customKey]  
+    		
+      	continue
+          
+    	for own bindingKey, bindingValue of value
+    		createElementBinding value[bindingKey], key
 }
-
+	
 ko.unobtrusive.bindings = {
   value: []
   text: []
