@@ -1,24 +1,25 @@
+
+/*
+Knockout.Unobtrusive v0.2 
+
+Copyright (C)2011 Brandon Satrom, Carrot Pants Studios
+Distributed Under MIT License
+
+Documentation and Full license Available at:
+http://github.com/bsatrom/knockout.unobtrusive
+
+----------------------------
+Knockout.Unobtrusive
+----------------------------
+*/
+
 (function() {
-  /*
-  Knockout.Unobtrusive v0.2 
-  
-  Copyright (C)2011 Brandon Satrom, Carrot Pants Studios
-  Distributed Under MIT License
-  
-  Documentation and Full license Available at:
-  http://github.com/bsatrom/knockout.unobtrusive
-  
-  ----------------------------
-  Knockout.Unobtrusive
-  ----------------------------
-  */
   var __hasProp = Object.prototype.hasOwnProperty;
+
   ko.unobtrusive = {
     createBindings: function(bindings) {
       var bindingKey, bindingValue, createElementBinding, customKey, customValue, getElement, getElementsByClassName, key, quoteAttributes, setAttribute, setElementBinding, value, _results;
-      if (!bindings) {
-        bindings = ko.unobtrusive.bindings;
-      }
+      if (!bindings) bindings = ko.unobtrusive.bindings;
       getElement = function(id) {
         var el;
         el = document.getElementById(id) || document.getElementsByName(id)[0];
@@ -38,18 +39,14 @@
         expr = new RegExp("(?:^|\\s)" + className + "(?:\\s|$)");
         for (_i = 0, _len = all.length; _i < _len; _i++) {
           element = all[_i];
-          if (expr.test(element.className)) {
-            match.push(element);
-          }
+          if (expr.test(element.className)) match.push(element);
         }
         return match;
       };
       setAttribute = function(el, id, value) {
         var existing;
         existing = el.getAttribute("data-bind");
-        if (existing && existing !== value) {
-          value = "" + existing + ", " + value;
-        }
+        if (existing && existing !== value) value = "" + existing + ", " + value;
         return el.setAttribute("data-bind", value);
       };
       quoteAttributes = function(text, id) {
@@ -144,6 +141,7 @@
       return _results;
     }
   };
+
   ko.unobtrusive.bindings = {
     value: [],
     text: [],
@@ -152,4 +150,5 @@
     click: [],
     custom: {}
   };
+
 }).call(this);

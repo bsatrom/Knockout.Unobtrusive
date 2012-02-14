@@ -78,8 +78,8 @@ task 'watch', 'Watch prod source files and build changes', ->
 		console.log msg
 		wingrr.notify msg, {title: 'Ko.Unobtrusive Watch', image: successImg}
 		
-		fs.watchFile "#{source}/#{file}.coffee", (curr, prev) ->
-        if +curr.mtime isnt +prev.mtime
+		fs.watch "#{source}/#{file}.coffee", (event, file) ->
+        if event is "change"
             console.log "Saw change in #{source}/#{file}.coffee"
             try
               invoke 'build'

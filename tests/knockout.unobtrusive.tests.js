@@ -341,6 +341,8 @@
 	  equal(!!document.getElementById('itemsTmpl').text.match("class='item'") || !!document.getElementById('itemsTmpl').text.match('class="item"'), true);	  
 	});
 	
+	
+	
 	/*
   test('comprehensive bindings property creates data-bind attributes', function() {
       var bindings = {

@@ -23,7 +23,7 @@ ko.unobtrusive = {
         id = id.charAt(0).toUpperCase() + id.slice 1
         el = document.getElementById(id) or document.getElementsByName(id)[0]
         
-      return el
+      return el 
     
     #Not all browsers support document.getElementsByClassName, so I rolls my own
     getElementsByClassName = (className) ->
@@ -41,7 +41,7 @@ ko.unobtrusive = {
     	match
       
     setAttribute = (el, id, value) ->
-    		existing = el.getAttribute "data-bind"
+    		existing = el.getAttribute "data-bind" 
     		
     		if existing and existing isnt value    		
     			value = "#{existing}, #{value}"
