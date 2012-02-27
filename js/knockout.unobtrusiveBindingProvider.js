@@ -28,14 +28,14 @@ Knockout.Unobtrusive
       }
     };
     getFor = function(nd, ctx) {
-      var node, nodeList, _i, _len, _results;
+      var node, nodeList, result, _i, _len;
+      result = {};
       nodeList = fetchAttributes(nd);
-      _results = [];
       for (_i = 0, _len = nodeList.length; _i < _len; _i++) {
         node = nodeList[_i];
-        _results.push(applyBinding(node, ctx));
+        ko.utils.extend(result, applyBinding(node, ctx));
       }
-      return _results;
+      return result;
     };
     inspectAttributes = function(nd) {
       var key;
@@ -62,7 +62,7 @@ Knockout.Unobtrusive
       if (bindingAccessor) {
         binding = typeof bindingAccessor === "function" ? bindingAccessor.call(ctx.$data) : bindingAccessor;
       }
-      return console.log(binding);
+      return binding;
     };
     return pub = {
       init: function(model) {

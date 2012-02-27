@@ -20,9 +20,12 @@ ko.unobtrusive.bindingProvider = do ->
 		if nd.getAttribute then inspectAttributes(nd) else false 
 	
 	getFor = (nd, ctx) ->
+		result = {}
 		nodeList = fetchAttributes nd
 		
-		applyBinding node, ctx for node in nodeList
+		ko.utils.extend(result, applyBinding(node, ctx)) for node in nodeList
+
+		result
 
 	inspectAttributes = (nd) ->
 		key = nd.getAttribute("id") or nd.getAttribute("name") or nd.getAttribute("class")
@@ -49,8 +52,8 @@ ko.unobtrusive.bindingProvider = do ->
 
 		if (bindingAccessor)
 			binding = if typeof bindingAccessor is "function" then bindingAccessor.call ctx.$data else bindingAccessor  
-		console.log binding
-
+		
+		binding
 	pub =
 		init: (model) -> 
 			bindingsModel = model

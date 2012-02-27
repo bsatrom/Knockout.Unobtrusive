@@ -82,8 +82,8 @@
   
   }
   test('value property on binding object binds model property to DOM element with the same id', function() {
-    var viewModel = {
-      firstName: ko.observable("Allen")
+    var viewModel = function(name) {
+      this.firstName = ko.observable(name);
     };
     
     var bindings = {
@@ -95,11 +95,28 @@
     };
     
     ko.bindingProvider.instance = ko.unobtrusive.bindingProvider.init(bindings);
-    ko.applyBindings(viewModel);
+    ko.applyBindings(new viewModel("Allen"));
 
-    get('#firstName').setAttribute('value', "Steve")
+    equals(document.getElementById('firstName').value, "Allen");
+  });
 
-    equals(get('#firstName').getAttribute('value'), "Steve");
+  test('value property on binding object binds model property to all DOM elements with the same class', function() {
+    var viewModel = function(name) {
+      this.fullName = ko.observable(name);
+    };
+    
+    var bindings = {
+      firstName: function() {
+        return {
+          value: this.fullName
+        }
+      }
+    };
+    
+    ko.bindingProvider.instance = ko.unobtrusive.bindingProvider.init(bindings);
+    ko.applyBindings(new viewModel("Steve Gibbons"));
+    
+    equals(document.getElementsByClassName('fullName')[0].value, "Steve Gibbons");
   });
 
 })(this);
