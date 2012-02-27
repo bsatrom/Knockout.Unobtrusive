@@ -106,7 +106,7 @@
     };
     
     var bindings = {
-      firstName: function() {
+      fullName: function() {
         return {
           value: this.fullName
         }

@@ -50,7 +50,7 @@ Knockout.Unobtrusive
       list = [];
       if (classes) {
         classes = classes.split(" ");
-        list.concat(classes);
+        list = list.concat(classes);
       }
       if (id) list.push(id);
       if (name) list.push(name);

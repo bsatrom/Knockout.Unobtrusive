@@ -40,11 +40,11 @@ ko.unobtrusive.bindingProvider = do ->
 
 		if classes
 			classes = classes.split(" ")
-			list.concat classes
+			list = list.concat classes
 
 		if id then list.push id
 		if name then list.push name
-
+		
 		list
 
 	applyBinding = (nd, ctx) ->
