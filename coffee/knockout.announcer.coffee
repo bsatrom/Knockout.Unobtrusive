@@ -1,18 +1,20 @@
 ###
-Knockout.Unobtrusive v0.4 
+Knockout.Announcer v0.1 
 
 Copyright (C)2011 Brandon Satrom, Carrot Pants Studios
 Distributed Under MIT License
 
 Documentation and Full license Available at:
-http://github.com/bsatrom/knockout.unobtrusive
+http://github.com/bsatrom/knockout.announcer
 
 ----------------------------
-Knockout.Unobtrusive
+Knockout.Announcer
 ----------------------------
 ###
 
-ko.bindingHelper = do ->
+ko.announcer = {};
+
+ko.announcer.bindingHelper = do ->
 
 	wrap = (type, binding) ->
 		-> 
@@ -26,7 +28,7 @@ ko.bindingHelper = do ->
 
 			wrapper
 		
-ko.propertyBindingProvider = do ->
+ko.announcer.propertyProvider = do ->
 	bindingsModel = null
 	hasFor = (nd) ->
 		if nd.getAttribute then inspectAttributes(nd) else false 

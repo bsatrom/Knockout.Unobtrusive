@@ -36,7 +36,7 @@ task 'build', "builds #{file}", ->
     fs.writeFile "#{output}/#{file}.js", CoffeeScript.compile code
 	
 task 'minify', "minifies #{file} to a release build", ->
-	invoke 'build'
+	#invoke 'build'
 	console.log "minifying #{file}"
 	files = fs.readdirSync output
 	files = ("#{output}/" + f for f in files when f.match(/\.js$/))

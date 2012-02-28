@@ -1,21 +1,23 @@
 
 /*
-Knockout.Unobtrusive v0.4 
+Knockout.Announcer v0.1 
 
 Copyright (C)2011 Brandon Satrom, Carrot Pants Studios
 Distributed Under MIT License
 
 Documentation and Full license Available at:
-http://github.com/bsatrom/knockout.unobtrusive
+http://github.com/bsatrom/knockout.announcer
 
 ----------------------------
-Knockout.Unobtrusive
+Knockout.Announcer
 ----------------------------
 */
 
 (function() {
 
-  ko.bindingHelper = (function() {
+  ko.announcer = {};
+
+  ko.announcer.bindingHelper = (function() {
     var pub, wrap;
     wrap = function(type, binding) {
       return function() {
@@ -34,7 +36,7 @@ Knockout.Unobtrusive
     };
   })();
 
-  ko.propertyBindingProvider = (function() {
+  ko.announcer.propertyProvider = (function() {
     var applyBinding, bindingsModel, fetchAttributes, getFor, hasFor, inspectAttributes, pub;
     bindingsModel = null;
     hasFor = function(nd) {
