@@ -18,16 +18,14 @@ ko.bindingHelper = do ->
 		-> 
 			obj = {}
 			obj[type] = @[binding]
-			console.log obj
 			obj
 
 	pub = 
 		createWrapper: (type, binding) -> 
 			wrapper = wrap type, binding
 
-			console.log wrapper
 			wrapper
-
+		
 ko.propertyBindingProvider = do ->
 	bindingsModel = null
 	hasFor = (nd) ->

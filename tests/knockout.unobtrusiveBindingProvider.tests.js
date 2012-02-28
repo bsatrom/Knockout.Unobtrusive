@@ -165,14 +165,17 @@
 
   test('value property with wrapper helper binds model property to DOM elements', function() {
     var viewModel = {
-
+      favoriteColor: ko.observable("Blue")
     };
 
     var bindings = {
-
+      favoriteColor: ko.bindingHelper.createWrapper("value", "favoriteColor")
     };
 
+    ko.bindingProvider.instance = ko.propertyBindingProvider.init(bindings);
+    ko.applyBindings(viewModel);
 
+    equals(document.getElementById('favoriteColor').value, "Blue");
   });
 
   test('mixed properties on binding object binds model property to all DOM elements', function() {

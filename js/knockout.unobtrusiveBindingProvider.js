@@ -22,7 +22,6 @@ Knockout.Unobtrusive
         var obj;
         obj = {};
         obj[type] = this[binding];
-        console.log(obj);
         return obj;
       };
     };
@@ -30,7 +29,6 @@ Knockout.Unobtrusive
       createWrapper: function(type, binding) {
         var wrapper;
         wrapper = wrap(type, binding);
-        console.log(wrapper);
         return wrapper;
       }
     };
