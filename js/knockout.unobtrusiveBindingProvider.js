@@ -15,9 +15,28 @@ Knockout.Unobtrusive
 
 (function() {
 
-  ko.unobtrusive = {};
+  ko.bindingHelper = (function() {
+    var pub, wrap;
+    wrap = function(type, binding) {
+      return function() {
+        var obj;
+        obj = {};
+        obj[type] = this[binding];
+        console.log(obj);
+        return obj;
+      };
+    };
+    return pub = {
+      createWrapper: function(type, binding) {
+        var wrapper;
+        wrapper = wrap(type, binding);
+        console.log(wrapper);
+        return wrapper;
+      }
+    };
+  })();
 
-  ko.unobtrusive.bindingProvider = (function() {
+  ko.propertyBindingProvider = (function() {
     var applyBinding, bindingsModel, fetchAttributes, getFor, hasFor, inspectAttributes, pub;
     bindingsModel = null;
     hasFor = function(nd) {

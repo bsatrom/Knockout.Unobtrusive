@@ -6,7 +6,7 @@
 
   module = QUnit.module;
 
-  module('createBindings', {
+  module('bindingProvider', {
     teardown: function() {
       if(!QUnit.reset) {
         rebuildDom();
@@ -81,6 +81,7 @@
     };
   
   }
+  
   test('value property on binding object binds model property to DOM element with the same id', function() {
     var viewModel = function(name) {
       this.firstName = ko.observable(name);
@@ -94,10 +95,31 @@
       }
     };
     
-    ko.bindingProvider.instance = ko.unobtrusive.bindingProvider.init(bindings);
+    ko.bindingProvider.instance = ko.propertyBindingProvider.init(bindings);
     ko.applyBindings(new viewModel("Allen"));
 
     equals(document.getElementById('firstName').value, "Allen");
+  });
+
+  test('value property on binding object binds model property and responds to underlying model change', function() {
+    var viewModel = {
+      firstName: ko.observable("Allen")
+    };
+    
+    var bindings = {
+      firstName: function() {
+        return {
+          value: this.firstName
+        }
+      }
+    };
+    
+    ko.bindingProvider.instance = ko.propertyBindingProvider.init(bindings);
+    ko.applyBindings(viewModel);
+
+    viewModel.firstName("Steve");
+
+    equals(document.getElementById('firstName').value, "Steve");
   });
 
   test('value property on binding object binds model property to all DOM elements with the same class', function() {
@@ -113,10 +135,65 @@
       }
     };
     
-    ko.bindingProvider.instance = ko.unobtrusive.bindingProvider.init(bindings);
+    ko.bindingProvider.instance = ko.propertyBindingProvider.init(bindings);
     ko.applyBindings(new viewModel("Steve Gibbons"));
     
     equals(document.getElementsByClassName('fullName')[0].value, "Steve Gibbons");
+    equals(document.getElementsByClassName('fullName')[1].value, "Steve Gibbons");
+    equals(document.getElementsByClassName('fullName')[2].value, "Steve Gibbons");
+  })
+
+  test('value property on binding object binds model property to all DOM elements with id or class name', function() {
+    var viewModel = {
+      fullName: ko.observable("Amelia Pond")
+    };
+
+    var bindings = {
+      fullName: function() {
+        return {
+          value: this.fullName
+        }
+      }
+    };
+
+    ko.bindingProvider.instance = ko.propertyBindingProvider.init(bindings);
+    ko.applyBindings(viewModel);
+
+    equals(document.getElementsByClassName('fullName')[0].value, "Amelia Pond");
+    equals(document.getElementsByName('fullName')[0].value, "Amelia Pond")
   });
 
+  test('value property with wrapper helper binds model property to DOM elements', function() {
+    var viewModel = {
+
+    };
+
+    var bindings = {
+
+    };
+
+
+  });
+
+  test('mixed properties on binding object binds model property to all DOM elements', function() {
+    var viewModel = {
+      fullName: ko.observable("Amelia Pond"),
+      favoriteColor: ko.observable("Blue")
+    };
+
+    var bindings = {
+      fullName: function() {
+        return {
+          value: this.fullName
+        }
+      },
+      favoriteColor: ko.bindingHelper.createWrapper("value", "favoriteColor")
+    };
+
+    ko.bindingProvider.instance = ko.propertyBindingProvider.init(bindings);
+    ko.applyBindings(viewModel);
+
+    equals(document.getElementsByClassName('fullName')[0].value, "Amelia Pond");
+    equals(document.getElementById('favoriteColor').value, "Blue")
+  });
 })(this);

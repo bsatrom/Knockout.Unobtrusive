@@ -12,9 +12,23 @@ Knockout.Unobtrusive
 ----------------------------
 ###
 
-ko.unobtrusive = {}
+ko.bindingHelper = do ->
 
-ko.unobtrusive.bindingProvider = do ->
+	wrap = (type, binding) ->
+		-> 
+			obj = {}
+			obj[type] = @[binding]
+			console.log obj
+			obj
+
+	pub = 
+		createWrapper: (type, binding) -> 
+			wrapper = wrap type, binding
+
+			console.log wrapper
+			wrapper
+
+ko.propertyBindingProvider = do ->
 	bindingsModel = null
 	hasFor = (nd) ->
 		if nd.getAttribute then inspectAttributes(nd) else false 
